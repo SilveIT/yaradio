@@ -20,6 +20,7 @@ Icon=/full/path/to/folder/YaRadio/resources/app/static/Icon.png
 ```
 #### Windows
 Build and move to some location.
+
 ---
 ### Dev
 Built with [Electron](http://electron.atom.io).
