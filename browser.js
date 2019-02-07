@@ -38,6 +38,6 @@ ipc.on('log-out', () => {
 ipc.on('play', () => exec('a.togglePause()'));
 ipc.on('next', () => exec('a.next()'));
 ipc.on('like', () => click(el.like));
-ipc.on('dislike', () => click(el.dislike));
+ipc.on('dislike', () => exec('a.dislike()'));
 ipc.on('mute', () => exec('a.mute()'));
 ipc.on('HQ', () => exec('a.toggleHQ()'));
