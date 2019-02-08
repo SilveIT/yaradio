@@ -111,13 +111,13 @@ app.on('ready', () => {
 		}
 	});
 	
-	const { session } = require('electron')
+	const { session } = require('electron');
 
 	session.defaultSession.webRequest.onBeforeRequest(['*://*./*'], function(details, callback) {
         var whitelist =/avatars.yandex.net|yapic.yandex.ru|avatars.mds.yandex.net|.ttf|.woff|registration-validations|passport-frontend|storage.yandex.net|music.yandex.ru|radio.yandex.ru|jquery.min.js|jquery-ui.min.js|.css/gi;
 
         if (whitelist.test(details.url)) {
-            callback({cancel: false})
+            callback({cancel: false});
         }
 		else {
 			//const { dialog } = require('electron')
@@ -125,7 +125,7 @@ app.on('ready', () => {
 			var nodeConsole = require('console');
 			var mainConsole = new nodeConsole.Console(process.stdout, process.stderr);
 			mainConsole.log('Blocked: ' + details.url);
-            callback({cancel: true})
+            callback({cancel: true});
         }
 	});
 
