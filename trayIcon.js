@@ -1,6 +1,7 @@
 "use strict";
 const path = require("path");
 const electron = require("electron");
+const settings = require("./settings");
 
 const iconPath = path.join(__dirname, "static/Icon.png");
 
@@ -24,6 +25,13 @@ function ctxTpl(win, app) {
 		{
 			label: "Dislike",
 			click: () => win.send("dislike")
+		},
+		{
+			type: "separator"
+		},
+		{
+			label: "Settings",
+			click: () => settings.show()
 		},
 		{
 			type: "separator"
