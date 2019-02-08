@@ -3,9 +3,7 @@ const electron = require("electron");
 
 const ipc = electron.ipcRenderer;
 const webFrame = electron.webFrame;
-const config = require("./config");
-
-const el = config.get("element");
+const el = electron.remote.require('./index').element;
 
 function exec(command) {
 	webFrame.executeJavaScript(`if (!window.a) a = new Mu.Adapter(); ${command};`);
@@ -21,11 +19,11 @@ function click(s) {
 ipc.on("preferences", () => {
 	click(el.prefButton);
 	window.setTimeout(() => {
-		let w = document.documentElement.scrollWidth / 2 | 0;
-		let h = document.documentElement.scrollHeight / 2 | 0;
-		let pref = document.querySelector(el.prefDialog);
-		let pw = pref.offsetWidth / 2 | 0;
-		let ph = pref.offsetHeight / 2 | 0;
+		const w = document.documentElement.scrollWidth / 2 | 0;
+		const h = document.documentElement.scrollHeight / 2 | 0;
+		const pref = document.querySelector(el.prefDialog);
+		const pw = pref.offsetWidth / 2 | 0;
+		const ph = pref.offsetHeight / 2 | 0;
 		pref.style.top = `${h - ph}px`;
 		pref.style.left = `${w - pw}px`;
 	}, 25);

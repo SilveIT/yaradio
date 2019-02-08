@@ -23,6 +23,10 @@ module.exports = new Config({
 			next: "MediaNextTrack",
 			like: "Super+PageUp",
 			dislike: "Super+PageDown"
+		},
+		windowBehavior: {
+			trayOnClose: false,
+			trayOnMinimize: true
 		}
 	}
 });

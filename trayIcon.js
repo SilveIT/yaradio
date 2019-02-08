@@ -39,7 +39,7 @@ function ctxTpl(win, app) {
 				app.quit();
 			}
 		}
-	]
+	];
 }
 
 exports.create = (win, app) => {
@@ -54,9 +54,9 @@ exports.create = (win, app) => {
 		} else {
 			win.show();
 		}
-	})
+	});
 
 	win.on("show", function () {
-		appIcon.setHighlightMode("always")
-	})
-}
+		appIcon.setHighlightMode("always");
+	});
+};

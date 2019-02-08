@@ -2,7 +2,7 @@
 const os = require("os");
 const path = require("path");
 const electron = require("electron");
-
+const settings = require("./settings");
 const app = electron.app;
 const shell = electron.shell;
 const appName = app.getName();
@@ -11,7 +11,7 @@ const helpSubmenu = [
 	{
 		label: `${appName} Website`,
 		click() {
-			shell.openExternal("https://github.com/dedpnd/yaradio");
+			shell.openExternal("https://git.teiko.studio/SilverIce/yaradio");
 		}
 	},
 	{
@@ -26,7 +26,7 @@ ${app.getName()} ${app.getVersion()}
 Electron ${process.versions.electron}
 ${process.platform} ${process.arch} ${os.release()}`;
 
-			shell.openExternal(`https://github.com/dedpnd/yaradio/issues/new?body=${encodeURIComponent(body)}`);
+			shell.openExternal(`https://git.teiko.studio/SilverIce/yaradio/issues/new?issue[description]=${encodeURIComponent(body)}`);
 		}
 	}
 ];
@@ -88,12 +88,6 @@ function darwinTpl(win) {
 				},
 				{
 					role: "unhide"
-				},
-				{
-					type: "separator"
-				},
-				{
-					role: "quit"
 				}
 			]
 		},
@@ -101,7 +95,7 @@ function darwinTpl(win) {
 			label: "Station",
 			submenu: [
 				{
-					label: "Play",
+					label: "Play / pause",
 					// accelerator: 'Space',
 					click: () => win.send("play")
 				},
@@ -134,29 +128,6 @@ function darwinTpl(win) {
 			]
 		},
 		{
-			role: "window",
-			submenu: [
-				{
-					role: "minimize"
-				},
-				{
-					role: "close"
-				},
-				{
-					type: "separator"
-				},
-				{
-					role: "front"
-				},
-				{
-					role: "togglefullscreen"
-				},
-				{
-					type: "separator"
-				}
-			]
-		},
-		{
 			role: "help",
 			submenu: helpSubmenu
 		}
@@ -166,11 +137,26 @@ function darwinTpl(win) {
 function otherTpl(win) {
 	return [
 		{
+			label: appName,
+			submenu: [
+				{
+					label: "Settings",
+					click: () => settings.show()
+				},
+				{
+					type: "separator"
+				},
+				{
+					role: "quit"
+				}
+			]
+		},
+		{
 			label: "Station",
 			submenu: [
 				{
-					label: "Play",
-					// accelerator: 'Space',
+					label: "Play / pause",
+					// accelerator: "Space",
 					click: () => win.send("play")
 				},
 				{
@@ -203,6 +189,13 @@ function otherTpl(win) {
 					type: "separator"
 				},
 				{
+					label: "HQ",
+					click: () => win.send("HQ")
+				},
+				{
+					type: "separator"
+				},
+				{
 					label: "Preferences...",
 					accelerator: "Cmd+,",
 					click: () => win.send("preferences")
@@ -210,26 +203,8 @@ function otherTpl(win) {
 			]
 		},
 		{
-			type: "separator"
-		},
-		{
-			label: "HQ",
-			click: () => win.send("HQ")
-		},
-		{
-			label: "Mute",
-			accelerator: "M",
-			click: () => win.send("mute")
-		},
-		{
 			role: "help",
 			submenu: helpSubmenu
-		},
-		{
-			type: "separator"
-		},
-		{
-			role: "quit"
 		}
 	];
 }
@@ -237,5 +212,6 @@ function otherTpl(win) {
 exports.create = win => {
 	const tpl = process.platform === "darwin" ? darwinTpl(win) : otherTpl(win);
 	const menu = electron.Menu.buildFromTemplate(tpl);
-	electron.Menu.setApplicationMenu(menu);
+	electron.Menu.setApplicationMenu(null);
+	win.setMenu(menu);
 };
