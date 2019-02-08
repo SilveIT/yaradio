@@ -1,66 +1,62 @@
-'use strict';
-const path = require('path');
-const electron = require('electron');
+"use strict";
+const path = require("path");
+const electron = require("electron");
 
-const iconPath = path.join(__dirname, 'static/Icon.png');
+const iconPath = path.join(__dirname, "static/Icon.png");
 
 function ctxTpl(win, app) {
-  return [
+	return [
 		{
-			label: 'Play',
-			click: function (e) { return win.send('play')	}		
-		},
-    {
-			label: 'Next Track',
-			click: () => win.send('next')			
+			label: "Play",
+			click: function (e) { return win.send("play") }
 		},
 		{
-			type: 'separator'
+			label: "Next Track",
+			click: () => win.send("next")
 		},
 		{
-			label: 'Like', 
-			click: () => win.send('like')
+			type: "separator"
 		},
 		{
-			label: 'Dislike', 
-			click: () => win.send('dislike')
+			label: "Like",
+			click: () => win.send("like")
 		},
 		{
-			type: 'separator'
+			label: "Dislike",
+			click: () => win.send("dislike")
 		},
 		{
-			label: 'Show App', click: function () {
-					win.show();
+			type: "separator"
+		},
+		{
+			label: "Show App", click: function () {
+				win.show();
 			}
 		},
 		{
-			label: 'Quit', click: function () {
-					//isQuitting = true;
-					app.quit();
+			label: "Quit", click: function () {
+				//isQuitting = true;
+				app.quit();
 			}
 		}
-  ]
+	]
 }
 
 exports.create = (win, app) => {
-  const ctxMenu = electron.Menu.buildFromTemplate(ctxTpl(win, app));
-  const appIcon = new electron.Tray(iconPath);
+	const ctxMenu = electron.Menu.buildFromTemplate(ctxTpl(win, app));
+	const appIcon = new electron.Tray(iconPath);
 
-  appIcon.setContextMenu(ctxMenu);
-	appIcon.addListener('click', (e)=>{
+	appIcon.setContextMenu(ctxMenu);
+	appIcon.addListener("click", (e) => {
 		e.preventDefault();
-		if (win.isVisible()){
+		if (win.isVisible()) {
 			win.hide();
 		} else {
 			win.show();
 		}
 	})
 
-  win.on('show', function () {
-		appIcon.setHighlightMode('always')
+	win.on("show", function () {
+		appIcon.setHighlightMode("always")
 	})
-
 }
-
-
-	

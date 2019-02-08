@@ -1,7 +1,7 @@
-'use strict';
-const os = require('os');
-const path = require('path');
-const electron = require('electron');
+"use strict";
+const os = require("os");
+const path = require("path");
+const electron = require("electron");
 
 const app = electron.app;
 const shell = electron.shell;
@@ -11,11 +11,11 @@ const helpSubmenu = [
 	{
 		label: `${appName} Website`,
 		click() {
-			shell.openExternal('https://github.com/dedpnd/yaradio');
+			shell.openExternal("https://github.com/dedpnd/yaradio");
 		}
 	},
 	{
-		label: 'Report an Issue...',
+		label: "Report an Issue...",
 		click() {
 			const body = `
 <!-- Please succinctly describe your issue and steps to reproduce it. -->
@@ -31,19 +31,19 @@ ${process.platform} ${process.arch} ${os.release()}`;
 	}
 ];
 
-if (process.platform !== 'darwin') {
+if (process.platform !== "darwin") {
 	helpSubmenu.push(
 		{
-			type: 'separator'
+			type: "separator"
 		},
 		{
-			role: 'about',
+			role: "about",
 			click() {
 				electron.dialog.showMessageBox({
 					title: `About ${appName}`,
 					message: `${appName} ${app.getVersion()}`,
-					detail: 'Created by Maxim Ponomarev, modificated by Silve',
-					icon: path.join(__dirname, 'static/Icon.png')
+					detail: "Created by Maxim Ponomarev, modificated by Silve",
+					icon: path.join(__dirname, "static/Icon.png")
 				});
 			}
 		}
@@ -56,108 +56,108 @@ function darwinTpl(win) {
 			label: appName,
 			submenu: [
 				{
-					role: 'about'
+					role: "about"
 				},
 				{
-					type: 'separator'
+					type: "separator"
 				},
 				{
-					label: 'HQ',
-					click: () => win.send('HQ')
+					label: "HQ",
+					click: () => win.send("HQ")
 				},
 				{
-					label: 'Mute',
-					accelerator: 'M',
-					click: () => win.send('mute')
+					label: "Mute",
+					accelerator: "M",
+					click: () => win.send("mute")
 				},
 				{
-					type: 'separator'
+					type: "separator"
 				},
 				{
-					role: 'services',
+					role: "services",
 					submenu: []
 				},
 				{
-					type: 'separator'
+					type: "separator"
 				},
 				{
-					role: 'hide'
+					role: "hide"
 				},
 				{
-					role: 'hideothers'
+					role: "hideothers"
 				},
 				{
-					role: 'unhide'
+					role: "unhide"
 				},
 				{
-					type: 'separator'
+					type: "separator"
 				},
 				{
-					role: 'quit'
+					role: "quit"
 				}
 			]
 		},
 		{
-			label: 'Station',
+			label: "Station",
 			submenu: [
 				{
-					label: 'Play',
+					label: "Play",
 					// accelerator: 'Space',
-					click: () => win.send('play')
+					click: () => win.send("play")
 				},
 				{
-					label: 'Next Track',
+					label: "Next Track",
 					// accelerator: 'L',
-					click: () => win.send('next')
+					click: () => win.send("next")
 				},
 				{
-					type: 'separator'
+					type: "separator"
 				},
 				{
-					label: 'Like',
+					label: "Like",
 					// accelerator: 'F',
-					click: () => win.send('like')
+					click: () => win.send("like")
 				},
 				{
-					label: 'Dislike',
+					label: "Dislike",
 					// accelerator: 'D',
-					click: () => win.send('dislike')
+					click: () => win.send("dislike")
 				},
 				{
-					type: 'separator'
+					type: "separator"
 				},
 				{
-					label: 'Preferences...',
-					accelerator: 'Cmd+,',
-					click: () => win.send('preferences')
+					label: "Preferences...",
+					accelerator: "Cmd+,",
+					click: () => win.send("preferences")
 				}
 			]
 		},
 		{
-			role: 'window',
+			role: "window",
 			submenu: [
 				{
-					role: 'minimize'
+					role: "minimize"
 				},
 				{
-					role: 'close'
+					role: "close"
 				},
 				{
-					type: 'separator'
+					type: "separator"
 				},
 				{
-					role: 'front'
+					role: "front"
 				},
 				{
-					role: 'togglefullscreen'
+					role: "togglefullscreen"
 				},
 				{
-					type: 'separator'
+					type: "separator"
 				}
 			]
 		},
 		{
-			role: 'help',
+			role: "help",
 			submenu: helpSubmenu
 		}
 	];
@@ -166,76 +166,76 @@ function darwinTpl(win) {
 function otherTpl(win) {
 	return [
 		{
-			label: 'Station',
+			label: "Station",
 			submenu: [
 				{
-					label: 'Play',
+					label: "Play",
 					// accelerator: 'Space',
-					click: () => win.send('play')
+					click: () => win.send("play")
 				},
 				{
-					label: 'Next Track',
+					label: "Next Track",
 					// accelerator: 'L',
-					click: () => win.send('next')
+					click: () => win.send("next")
 				},
 				{
-					type: 'separator'
+					type: "separator"
 				},
 				{
-					label: 'Mute',
-					accelerator: 'M',
-					click: () => win.send('mute')
+					label: "Mute",
+					accelerator: "M",
+					click: () => win.send("mute")
 				},
 				{
-					type: 'separator'
+					type: "separator"
 				},
 				{
-					label: 'Like',
+					label: "Like",
 					// accelerator: 'F',
-					click: () => win.send('like')
+					click: () => win.send("like")
 				},
 				{
-					label: 'Dislike',
+					label: "Dislike",
 					// accelerator: 'D',
-					click: () => win.send('dislike')
+					click: () => win.send("dislike")
 				},
 				{
-					type: 'separator'
+					type: "separator"
 				},
 				{
-					label: 'Preferences...',
-					accelerator: 'Cmd+,',
-					click: () => win.send('preferences')
+					label: "Preferences...",
+					accelerator: "Cmd+,",
+					click: () => win.send("preferences")
 				}
 			]
 		},
 		{
-			type: 'separator'
+			type: "separator"
 		},
 		{
-			label: 'HQ',
-			click: () => win.send('HQ')
+			label: "HQ",
+			click: () => win.send("HQ")
 		},
 		{
-			label: 'Mute',
-			accelerator: 'M',
-			click: () => win.send('mute')
+			label: "Mute",
+			accelerator: "M",
+			click: () => win.send("mute")
 		},
 		{
-			role: 'help',
+			role: "help",
 			submenu: helpSubmenu
 		},
 		{
-			type: 'separator'
+			type: "separator"
 		},
 		{
-			role: 'quit'
+			role: "quit"
 		}
 	];
 }
 
 exports.create = win => {
-	const tpl = process.platform === 'darwin' ? darwinTpl(win) : otherTpl(win);
+	const tpl = process.platform === "darwin" ? darwinTpl(win) : otherTpl(win);
 	const menu = electron.Menu.buildFromTemplate(tpl);
 	electron.Menu.setApplicationMenu(menu);
 };

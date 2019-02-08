@@ -1,24 +1,24 @@
-'use strict';
-const electron = require('electron');
+"use strict";
+const electron = require("electron");
 
 const ipc = electron.ipcRenderer;
 const webFrame = electron.webFrame;
-const config = require('./config');
+const config = require("./config");
 
-const el = config.get('element');
+const el = config.get("element");
 
 function exec(command) {
 	webFrame.executeJavaScript(`if (!window.a) a = new Mu.Adapter(); ${command};`);
 }
 
 function click(s) {
-	const e = document.querySelector(s);
-	if (e) {
-		e.click();
+	const els = document.querySelectorAll(s);
+	if (els.length > 0) {
+		els[els.length - 1].click();
 	}
 }
 
-ipc.on('preferences', () => {
+ipc.on("preferences", () => {
 	click(el.prefButton);
 	window.setTimeout(() => {
 		let w = document.documentElement.scrollWidth / 2 | 0;
@@ -31,13 +31,12 @@ ipc.on('preferences', () => {
 	}, 25);
 });
 
-ipc.on('log-out', () => {
-
+ipc.on("log-out", () => {
 });
 
-ipc.on('play', () => exec('a.togglePause()'));
-ipc.on('next', () => exec('a.next()'));
-ipc.on('like', () => click(el.like));
-ipc.on('dislike', () => exec('a.dislike()'));
-ipc.on('mute', () => exec('a.mute()'));
-ipc.on('HQ', () => exec('a.toggleHQ()'));
+ipc.on("play", () => exec("a.togglePause()"));
+ipc.on("next", () => exec("a.next()"));
+ipc.on("like", () => click(el.like));
+ipc.on("dislike", () => click(el.dislike));
+ipc.on("mute", () => exec("a.mute()"));
+ipc.on("HQ", () => exec("a.toggleHQ()"));
