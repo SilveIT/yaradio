@@ -42,7 +42,7 @@ if (process.platform !== 'darwin') {
 				electron.dialog.showMessageBox({
 					title: `About ${appName}`,
 					message: `${appName} ${app.getVersion()}`,
-					detail: 'Created by Maxim Ponomarev',
+					detail: 'Created by Maxim Ponomarev, modificated by Silve',
 					icon: path.join(__dirname, 'static/Icon.png')
 				});
 			}
