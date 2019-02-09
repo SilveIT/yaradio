@@ -5,6 +5,10 @@ const settings = require("./settings");
 
 const iconPath = path.join(__dirname, "static/Icon.png");
 
+let appIcon = null;
+let curTooltip = "";
+let clickHandlerTimeout = 0;
+
 function ctxTpl(win, app) {
 	return [
 		{
@@ -57,21 +61,59 @@ function ctxTpl(win, app) {
 	];
 }
 
-exports.create = (win, app) => {
+function getClickHandler(onClick, onDblClick, delay) {
+	delay = delay || 250;
+	return function (event) {
+		if (clickHandlerTimeout <= 0) {
+			clickHandlerTimeout = setTimeout(function () {
+				if (clickHandlerTimeout <= 0) return;
+				onClick(event);
+				clickHandlerTimeout = 0;
+			}, delay);
+		} else {
+			clearTimeout(clickHandlerTimeout);
+			clickHandlerTimeout = 0;
+			onDblClick(event);
+		}
+	};
+}
+
+exports.create = (win, app, eNotify) => {
 	const ctxMenu = electron.Menu.buildFromTemplate(ctxTpl(win, app));
-	const appIcon = new electron.Tray(iconPath);
+	appIcon = new electron.Tray(iconPath);
 
 	appIcon.setContextMenu(ctxMenu);
-	appIcon.addListener("click", (e) => {
+
+	const click = (e) => {
+		e.preventDefault();
+		if (curTooltip === "") return;
+		electron.clipboard.writeText(curTooltip);
+		eNotify.notify(
+			{
+				title: "Copied to clipboard",
+				text: curTooltip,
+				displayTime: 1500
+			});
+	};
+	const dblclick = (e) => {
 		e.preventDefault();
 		if (win.isVisible()) {
 			win.hide();
 		} else {
 			win.show();
 		}
-	});
+	};
+	var clickHandler = getClickHandler(click, dblclick, 250);
+
+	appIcon.addListener("click", clickHandler);
+	appIcon.addListener("double-click", clickHandler);
 
 	win.on("show", function () {
 		appIcon.setHighlightMode("always");
 	});
+};
+
+exports.setTrayTooltip = (tooltip) => {
+	appIcon.setToolTip(tooltip);
+	curTooltip = tooltip;
 };

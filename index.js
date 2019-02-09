@@ -108,7 +108,7 @@ app.on("ready", () => {
 	});
 
 	menu.create(win);
-	ctxMenu.create(win, app);
+	ctxMenu.create(win, app, eNotify);
 
 	if (binds.mute !== "")
 		electron.globalShortcut.register(binds.mute, () => win.send("mute"));
@@ -256,16 +256,19 @@ ipc.on("show-track", (_, [author, track, preview]) => {
 			text: track,
 			image: preview,
 			onClickFunc: (notification) => {
-				electron.clipboard.writeText(track + " by " + author);
+				const fullTrack = track + " by " + author;
+				electron.clipboard.writeText(fullTrack);
 				notification.closeNotification();
 				eNotify.notify(
 					{
 						title: "Copied to clipboard",
-						displayTime: 1000
+						text: fullTrack,
+						displayTime: 1500
 					});
 			}
 		}
 	);
+	ctxMenu.setTrayTooltip(track + " by " + author);
 });
 
 exports.element = settings.value("element");
