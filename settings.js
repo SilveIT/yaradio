@@ -28,6 +28,11 @@ module.exports = new ElectronPreferences({
 			dislike: ".page-station .button.like_action_dislike",
 			activeStation: ".page-index .station_playing"
 		},
+		notifications: {
+			enable: ["true"],
+			showPreviews: ["true"],
+			displayTime: 4000
+		},
 		keyboard: {
 			dislike: "Super+PageDown",
 			like: "Super+PageUp",
@@ -72,6 +77,41 @@ module.exports = new ElectronPreferences({
 									{ 'label': "Minimize to tray on window close", 'value': "trayOnClose" },
 									{ 'label': "Minimize to tray on window minimize", 'value': "trayOnMinimize" }
 								]
+							}
+						]
+					}
+				]
+			}
+		},
+		{
+			'id': "notifications",
+			'label': "Notifications",
+			'icon': "bell-53",
+			'form': {
+				'groups': [
+					{
+						'label': "Notifications",
+						'fields': [
+							{
+								'key': "enable",
+								'type': "checkbox",
+								'options': [
+									{ 'label': "Enable notifications", 'value': "true" }
+								]
+							},
+							{
+								'key': "showPreviews",
+								'type': "checkbox",
+								'options': [
+									{ 'label': "Show preview", 'value': "true" }
+								]
+							},
+							{
+								'label': "Delay",
+								'key': "displayTime",
+								'type': "slider",
+								'min': 500,
+								'max': 15000
 							}
 						]
 					}

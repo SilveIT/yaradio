@@ -2,18 +2,18 @@
 const path = require("path");
 const electron = require("electron");
 const settings = require("./settings");
-
 const iconPath = path.join(__dirname, "static/Icon.png");
 
+let ctxMenu = null;
 let appIcon = null;
 let curTooltip = "";
 let clickHandlerTimeout = 0;
 
-function ctxTpl(win, app) {
+function ctxTpl(win, app, showNotify) {
 	return [
 		{
-			label: "Play",
-			click: function () { return win.send("play") }
+			label: "Play / pause",
+			click: () => win.send("play")
 		},
 		{
 			label: "Next Track",
@@ -41,6 +41,15 @@ function ctxTpl(win, app) {
 			type: "separator"
 		},
 		{
+			label: "Show notifications",
+			type: "checkbox",
+			checked: showNotify,
+			click: () => changeShowNotify()
+		},
+		{
+			type: "separator"
+		},
+		{
 			label: "Settings",
 			click: () => settings.show()
 		},
@@ -48,17 +57,25 @@ function ctxTpl(win, app) {
 			type: "separator"
 		},
 		{
-			label: "Show App", click: function () {
-				win.show();
-			}
+			label: "Show App",
+			click: () => win.show()
 		},
 		{
-			label: "Quit", click: function () {
-				//isQuitting = true;
-				app.quit();
-			}
+			label: "Quit",
+			click: () => app.quit()
 		}
 	];
+}
+
+function changeShowNotify() {
+	const enableNotifications = settings.value("notifications.enable").indexOf("true") !== -1;
+	settings.value("notifications.enable", !enableNotifications ? ["true"] : []);
+}
+
+function updateIconMenu(win, app) {
+	const enableNotifications = settings.value("notifications.enable").indexOf("true") !== -1;
+	ctxMenu = electron.Menu.buildFromTemplate(ctxTpl(win, app, enableNotifications));
+	appIcon.setContextMenu(ctxMenu);
 }
 
 function getClickHandler(onClick, onDblClick, delay) {
@@ -79,10 +96,8 @@ function getClickHandler(onClick, onDblClick, delay) {
 }
 
 exports.create = (win, app, eNotify) => {
-	const ctxMenu = electron.Menu.buildFromTemplate(ctxTpl(win, app));
 	appIcon = new electron.Tray(iconPath);
-
-	appIcon.setContextMenu(ctxMenu);
+	updateIconMenu(win, app);
 
 	const click = (e) => {
 		e.preventDefault();
@@ -103,10 +118,16 @@ exports.create = (win, app, eNotify) => {
 			win.show();
 		}
 	};
+
 	var clickHandler = getClickHandler(click, dblclick, 250);
 
 	appIcon.addListener("click", clickHandler);
 	appIcon.addListener("double-click", clickHandler);
+
+	settings.on("save", () => {
+		//I'll update menu anyway, don't want to check every setting separately
+		updateIconMenu(win, app);
+	});
 
 	win.on("show", function () {
 		appIcon.setHighlightMode("always");

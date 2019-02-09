@@ -250,11 +250,17 @@ settings.on("save", (preferences) => { //Overgovnokod, I'm too lazy to think how
 });
 
 ipc.on("show-track", (_, [author, track, preview]) => {
+	ctxMenu.setTrayTooltip(track + " by " + author);
+	const enableNotifications = settings.value("notifications.enable").indexOf("true") !== -1;
+	if (!enableNotifications) return;
+	const showPreviews = settings.value("notifications.showPreviews").indexOf("true") !== -1;
+	const delay = settings.value("notifications.displayTime");
 	eNotify.notify(
 		{
 			title: author,
 			text: track,
-			image: preview,
+			image: showPreviews ? preview : null,
+			displayTime: delay,
 			onClickFunc: (notification) => {
 				const fullTrack = track + " by " + author;
 				electron.clipboard.writeText(fullTrack);
@@ -268,7 +274,6 @@ ipc.on("show-track", (_, [author, track, preview]) => {
 			}
 		}
 	);
-	ctxMenu.setTrayTooltip(track + " by " + author);
 });
 
 exports.element = settings.value("element");
