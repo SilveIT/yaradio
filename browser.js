@@ -5,8 +5,20 @@ const ipc = electron.ipcRenderer;
 const webFrame = electron.webFrame;
 const el = electron.remote.require('./index').element;
 
+window.addEventListener("load", function () {
+	window.Mu.pages.adapter.on("show-track", () => ipc.send("show-track", getCurrentTrack()));
+}, false);
+
+function getCurrentTrack() {
+	const cur = window.Mu.pages.adapter.getCurrent();
+	const author = (cur.artists.length > 0 ? (cur.artists.map(function (elem) { return elem.name; }).join(", ")) : "Unknown artist");
+	const track = cur.title;
+	const imageUrl = `https://${cur.ogImage.replace("%%", "100x100")}`;
+	return [author, track, imageUrl];
+}
+
 function exec(command) {
-	webFrame.executeJavaScript(`if (!window.a) a = new Mu.Adapter(); ${command};`);
+	webFrame.executeJavaScript(command);
 }
 
 function click(s) {
@@ -29,12 +41,10 @@ ipc.on("preferences", () => {
 	}, 25);
 });
 
-ipc.on("log-out", () => {
-});
-
-ipc.on("play", () => exec("a.togglePause()"));
-ipc.on("next", () => exec("a.next()"));
+ipc.on("logout", () => exec("window.open('https://passport.yandex.ru/passport?mode=embeddedauth&action=logout&retpath=https%3A%2F%2Fradio.yandex.ru&origin=radio_menu', '_blank')"));
+ipc.on("play", () => exec("Mu.pages.adapter.togglePause()"));
+ipc.on("next", () => exec("Mu.pages.adapter.next()"));
 ipc.on("like", () => click(el.like));
 ipc.on("dislike", () => click(el.dislike));
-ipc.on("mute", () => exec("a.mute()"));
-ipc.on("HQ", () => exec("a.toggleHQ()"));
+ipc.on("mute", () => exec("Mu.pages.adapter.mute()"));
+ipc.on("HQ", () => exec("Mu.pages.adapter.toggleHQ()"));

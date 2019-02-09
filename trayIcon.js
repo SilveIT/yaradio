@@ -9,11 +9,18 @@ function ctxTpl(win, app) {
 	return [
 		{
 			label: "Play",
-			click: function (e) { return win.send("play") }
+			click: function () { return win.send("play") }
 		},
 		{
 			label: "Next Track",
 			click: () => win.send("next")
+		},
+		{
+			type: "separator"
+		},
+		{
+			label: "Mute",
+			click: () => win.send("mute")
 		},
 		{
 			type: "separator"

@@ -144,6 +144,10 @@ function otherTpl(win) {
 					click: () => settings.show()
 				},
 				{
+					label: "Logout",
+					click: () => win.send("logout")
+				},
+				{
 					type: "separator"
 				},
 				{

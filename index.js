@@ -6,9 +6,7 @@ const menu = require("./menu");
 const ctxMenu = require("./trayIcon");
 const settings = require("./settings");
 const app = electron.app;
-
-let binds = settings.value("keyboard");
-
+const ipc = electron.ipcMain;
 require("electron-context-menu")({
 	prepend: () => [
 		{
@@ -18,8 +16,12 @@ require("electron-context-menu")({
 	]
 });
 
+let binds = settings.value("keyboard");
+
 let win;
 let quitting = false;
+
+let eNotify = null;
 
 const gotTheLock = app.requestSingleInstanceLock();
 
@@ -97,6 +99,14 @@ function createMainWindow() {
 
 app.on("ready", () => {
 	win = createMainWindow();
+
+	//Setup notifications
+	eNotify = require("electron-notify");
+	eNotify.setConfig({
+		//appIcon: path.join(__dirname, "static/icon.png"),
+		displayTime: 4000
+	});
+
 	menu.create(win);
 	ctxMenu.create(win, app);
 
@@ -116,7 +126,6 @@ app.on("ready", () => {
 
 	page.on("dom-ready", () => {
 		page.insertCSS(fs.readFileSync(path.join(__dirname, "browser.css"), "utf8"));
-
 		if (argv.minimize)
 			win.minimize();
 		else
@@ -145,6 +154,7 @@ app.on("activate", () => win.show());
 app.on("before-quit", () => {
 	quitting = true;
 
+	//Unbind keyboard shortcuts
 	if (binds.mute !== "")
 		electron.globalShortcut.unregister(binds.mute);
 	if (binds.play !== "")
@@ -156,6 +166,7 @@ app.on("before-quit", () => {
 	if (binds.dislike !== "")
 		electron.globalShortcut.unregister(binds.dislike);
 
+	//Save current window bounds
 	if (!win.isFullScreen()) {
 		const bounds = win.getBounds();
 		if (bounds.width < 800)
@@ -164,6 +175,9 @@ app.on("before-quit", () => {
 			bounds.height = 700;
 		settings.value("lastWindowState", bounds);
 	}
+
+	//Cleaning up notifications
+	eNotify.closeAll();
 });
 
 settings.on("save", (preferences) => { //Overgovnokod, I'm too lazy to think how to fix this.. Mb dropdown with key list + some chechboxes with super keys?..
@@ -233,6 +247,25 @@ settings.on("save", (preferences) => { //Overgovnokod, I'm too lazy to think how
 			}
 	}
 	binds = settings.value("keyboard");
+});
+
+ipc.on("show-track", (_, [author, track, preview]) => {
+	eNotify.notify(
+		{
+			title: author,
+			text: track,
+			image: preview,
+			onClickFunc: (notification) => {
+				electron.clipboard.writeText(track + " by " + author);
+				notification.closeNotification();
+				eNotify.notify(
+					{
+						title: "Copied to clipboard",
+						displayTime: 1000
+					});
+			}
+		}
+	);
 });
 
 exports.element = settings.value("element");
