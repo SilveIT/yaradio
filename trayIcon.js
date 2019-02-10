@@ -106,6 +106,7 @@ exports.create = (win, app, eNotify) => {
 		eNotify.notify(
 			{
 				title: "Copied to clipboard",
+				image: path.join(__dirname, "static/Icon.png"),
 				text: curTooltip,
 				displayTime: 1500
 			});

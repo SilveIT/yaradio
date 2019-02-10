@@ -21,7 +21,8 @@
   <PropertyGroup Condition="'$(Configuration)' == 'Debug'" />
   <PropertyGroup Condition="'$(Configuration)' == 'Release'" />
   <ItemGroup>
-    <Content Include="browser.css" />
+    <Content Include="browserDark.css" />
+    <Content Include="browserWhite.css" />
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="browser.js" />

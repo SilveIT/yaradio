@@ -104,11 +104,92 @@ function createMainWindow() {
 	return brWin;
 }
 
-function updateNotifyConfig() {
-	eNotify.setConfig({
+function updateNotifyConfig() { //It doesn't help..
+	const enableDark = settings.value("window.theme").indexOf("true") !== -1;
+	const whiteCfg = {
 		//appIcon: path.join(__dirname, "static/icon.png"),
-		displayTime: 4000
-	});
+		displayTime: 4000,
+		defaultStyleContainer: {
+			backgroundColor: "#f0f0f0",
+			overflow: "hidden",
+			padding: 8,
+			border: "1px solid #CCC",
+			fontFamily: "Arial",
+			fontSize: 12,
+			position: "relative",
+			lineHeight: "15px",
+		},
+		defaultStyleAppIcon: {
+			overflow: "hidden",
+			float: "left",
+			height: 40,
+			width: 40,
+			marginRight: 10,
+		},
+		defaultStyleImage: {
+			overflow: "hidden",
+			float: "right",
+			height: 40,
+			width: 40,
+			marginLeft: 10,
+		},
+		defaultStyleClose: {
+			position: "absolute",
+			top: 1,
+			right: 3,
+			fontSize: 11,
+			color: "#CCC"
+		},
+		defaultStyleText: {
+			margin: 0,
+			overflow: "hidden",
+			cursor: "default"
+		}
+	};
+	const darkCfg = {
+		//appIcon: path.join(__dirname, "static/icon.png"),
+		displayTime: 4000,
+		defaultStyleContainer: {
+			backgroundColor: "#f0f0f0",
+			overflow: "hidden",
+			padding: 8,
+			border: "1px solid #CCC",
+			fontFamily: "Arial",
+			fontSize: 12,
+			position: "relative",
+			lineHeight: "15px",
+			filter: "invert(1)"
+		},
+		defaultStyleAppIcon: {
+			overflow: "hidden",
+			float: "left",
+			height: 40,
+			width: 40,
+			marginRight: 10,
+			filter: "invert(1)"
+		},
+		defaultStyleImage: {
+			overflow: "hidden",
+			float: "right",
+			height: 40,
+			width: 40,
+			marginLeft: 10,
+			filter: "invert(1)"
+		},
+		defaultStyleClose: {
+			position: "absolute",
+			top: 1,
+			right: 3,
+			fontSize: 11,
+			color: "#CCC"
+		},
+		defaultStyleText: {
+			margin: 0,
+			overflow: "hidden",
+			cursor: "default"
+		}
+	};
+	eNotify.setConfig(whiteCfg);
 }
 
 app.on("ready", () => {
@@ -310,7 +391,7 @@ ipc.on("trackChanged",
 		if (!enableNotifications) return;
 		const showPreviews = settings.value("notifications.showPreviews").indexOf("true") !== -1;
 		const delay = settings.value("notifications.displayTime");
-		updateNotifyConfig(); //Fix "display: 'none'" style on image dom element through rebuilding notify page
+		//updateNotifyConfig(); //Fix "display: 'none'" style on image dom element through rebuilding notify page
 		eNotify.notify(
 			{
 				title: author,
@@ -324,6 +405,7 @@ ipc.on("trackChanged",
 					eNotify.notify(
 						{
 							title: "Copied to clipboard",
+							image: path.join(__dirname, "static/Icon.png"),
 							text: fullTrack,
 							displayTime: 1500
 						});

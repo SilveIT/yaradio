@@ -50,7 +50,7 @@ function darwinTpl() {
 				},
 				{
 					label: "Mute",
-					accelerator: "M",
+					// accelerator: "M",
 					click: () => browser.mute()
 				},
 				{
@@ -116,7 +116,7 @@ function darwinTpl() {
 				},
 				{
 					label: "Preferences...",
-					accelerator: "Cmd+,",
+					// accelerator: "Cmd+,",
 					click: () => browser.preferences()
 				}
 			]
@@ -167,7 +167,7 @@ function otherTpl() {
 				},
 				{
 					label: "Mute",
-					accelerator: "M",
+					// accelerator: "M",
 					click: () => browser.mute()
 				},
 				{
@@ -195,7 +195,7 @@ function otherTpl() {
 				},
 				{
 					label: "Preferences...",
-					accelerator: "Cmd+,",
+					// accelerator: "Cmd+,",
 					click: () => browser.preferences()
 				}
 			]
