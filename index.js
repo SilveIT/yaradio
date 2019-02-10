@@ -103,6 +103,13 @@ function createMainWindow() {
 	return brWin;
 }
 
+function updateNotifyConfig() {
+	eNotify.setConfig({
+		//appIcon: path.join(__dirname, "static/icon.png"),
+		displayTime: 4000
+	});
+}
+
 app.on("ready", () => {
 	//Removing default application menu
 	electron.Menu.setApplicationMenu(null);
@@ -112,10 +119,7 @@ app.on("ready", () => {
 
 	//Setup notifications
 	eNotify = require("electron-notify");
-	eNotify.setConfig({
-		//appIcon: path.join(__dirname, "static/icon.png"),
-		displayTime: 4000
-	});
+	updateNotifyConfig();
 
 	//Creating tray
 	tray.create(win, app, eNotify);
@@ -298,6 +302,7 @@ ipc.on("trackChanged",
 		if (!enableNotifications) return;
 		const showPreviews = settings.value("notifications.showPreviews").indexOf("true") !== -1;
 		const delay = settings.value("notifications.displayTime");
+		updateNotifyConfig(); //Fix "display: 'none'" style on image dom element through rebuilding notify page
 		eNotify.notify(
 			{
 				title: author,
