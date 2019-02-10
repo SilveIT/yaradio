@@ -1,7 +1,7 @@
 {
   "name": "yaradio",
   "productName": "YaRadio",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Unofficial Yandex.Radio app",
   "license": "MIT",
   "author": "Maxim Ponomarev & Silve",
@@ -14,6 +14,7 @@
     "build:windows": "cross-var electron-packager . --overwrite --asar --out=dist --ignore='^media$' --prune --platform=win32 --arch=ia32 --icon=static/Icon.ico --win32metadata.ProductName=$npm_package_productName --win32metadata.OriginalFilename=$npm_package_productName.exe --win32metadata.FileDescription=$npm_package_description --app-copyright=$npm_package_productName --app-version=$npm_package_version && cd dist/YaRadio-win32-ia32 && zip -rq9 ../YaRadio-windows.zip *"
   },
   "dependencies": {
+    "custom-electron-titlebar": "^3.0.0",
     "electron-context-menu": "^0.11",
     "electron-debug": "^2.1",
     "electron-notify": "^0.1.0",

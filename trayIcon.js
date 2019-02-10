@@ -138,3 +138,7 @@ exports.setTrayTooltip = (tooltip) => {
 	appIcon.setToolTip(tooltip);
 	curTooltip = tooltip;
 };
+
+exports.setTrayIcon = (path) => {
+	appIcon.setImage(path);
+}

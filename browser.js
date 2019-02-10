@@ -1,19 +1,28 @@
 "use strict";
 const electron = require("electron");
-//const http = require('http');
 const ipc = electron.ipcRenderer;
 const webFrame = electron.webFrame;
-const el = electron.remote.require('./index').element;
+const el = electron.remote.require("./index").element;
+const customTitlebar = require("custom-electron-titlebar");
+const menu = require("./menu");
+let titlebar = null;
 
 window.addEventListener("load", function () {
-	//http.get("http://use.fontawesome.com/releases/v5.7.1/css/all.css", function (res) {
-	//	res.setEncoding("utf8");
-	//	res.on("data", function (chunk) {
-	//		webFrame.insertCSS(chunk);
-	//	});
-	//});
-	//document.body.insertAdjacentHTML("afterbegin", "<header id='titlebar'><div id='drag-region'><div id='window-controls'><div class='controlButton' id='min-button'><span>&#xE921;</span></div><div class='controlButton' id='max-button'><span>&#xE922;</span></div><div class='controlButton' id='restore-button'><span>&#xE923;</span></div><div class='controlButton' id='close-button'><span>&#xE8BB;</span></div></div></div></header>");
-	window.Mu.pages.adapter.on("show-track", () => ipc.send("show-track", getCurrentTrack()));
+	const tbMenu = menu.create();
+	titlebar = new customTitlebar.Titlebar({
+		backgroundColor: customTitlebar.Color.fromHex("#444"),
+		minimizable: true,
+		closeable: true,
+		maximizable: true,
+		icon: "https://radio.yandex.ru/favicon32.png", //Fuck Content Security Policy
+		menu: tbMenu
+	});
+	document.title = ""; //Removing page title
+	titlebar.updateTitle(); //Synchronizing with titlebar
+	//Handle player track changed event
+	window.Mu.pages.adapter.on("show-track", () => ipc.send("trackChanged", getCurrentTrack()));
+	//Handle player state changed event
+	window.Mu.pages.adapter.on("state", () => ipc.send("stateChanged", window.Mu.pages.adapter.isPlaying()));
 }, false);
 
 function getCurrentTrack() {
@@ -35,7 +44,7 @@ function click(s) {
 	}
 }
 
-ipc.on("preferences", () => {
+exports.preferences = () => {
 	click(el.prefButton);
 	window.setTimeout(() => {
 		const w = document.documentElement.scrollWidth / 2 | 0;
@@ -46,12 +55,34 @@ ipc.on("preferences", () => {
 		pref.style.top = `${h - ph}px`;
 		pref.style.left = `${w - pw}px`;
 	}, 25);
-});
+}
 
-ipc.on("logout", () => exec("window.open('https://passport.yandex.ru/passport?mode=embeddedauth&action=logout&retpath=https%3A%2F%2Fradio.yandex.ru&origin=radio_menu', '_blank')"));
-ipc.on("play", () => exec("Mu.pages.adapter.togglePause()"));
-ipc.on("next", () => exec("Mu.pages.adapter.next()"));
-ipc.on("like", () => click(el.like));
-ipc.on("dislike", () => click(el.dislike));
-ipc.on("mute", () => exec("Mu.pages.adapter.mute()"));
-ipc.on("HQ", () => exec("Mu.pages.adapter.toggleHQ()"));
+exports.logout = () =>
+	exec("window.open('https://passport.yandex.ru/passport?mode=embeddedauth&action=logout&retpath=https%3A%2F%2Fradio.yandex.ru&origin=radio_menu', '_blank')");
+
+exports.play = () =>
+	exec("Mu.pages.adapter.togglePause()");
+
+exports.next = () =>
+	exec("Mu.pages.adapter.next()");
+
+exports.like = () =>
+	click(el.like);
+
+exports.dislike = () =>
+	click(el.dislike);
+
+exports.mute = () =>
+	exec("Mu.pages.adapter.mute()");
+
+exports.toggleHQ = () =>
+	exec("Mu.pages.adapter.toggleHQ()");
+
+ipc.on("preferences", () => exports.preferences());
+ipc.on("logout", () => exports.logout());
+ipc.on("play", () => exports.play());
+ipc.on("next", () => exports.next());
+ipc.on("like", () => exports.like());
+ipc.on("dislike", () => exports.dislike());
+ipc.on("mute", () => exports.mute());
+ipc.on("HQ", () => exports.toggleHQ());
