@@ -11,7 +11,7 @@ body {
 }
 
 .footer, .head__left, .logo,
-.nav__level_0 .footer__static-text {
+.nav__level_0 .footer__static-text, .nav__banner {
 	display: none !important;
 }
 
@@ -25,4 +25,11 @@ body {
 
 .page-root {
 	overflow-y: hidden !important;
+}
+
+body,
+.track__cover, .nb-user-avatar,
+.station-icon, .station__title, .background,
+.nav__banner-content, .footer__static-text, .track__menu-wrapper {
+	filter: invert(100%);
 }

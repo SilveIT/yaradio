@@ -14,6 +14,7 @@ let binds = settings.value("keyboard"); //Keyboard settings
 let win; //Browser window
 let quitting = false; //Is application quitting right now
 let eNotify = null; //Notifications core
+let prevTheme = settings.value("window.theme").indexOf("true") !== -1;
 
 require("electron-context-menu")({
 	prepend: (_, window) => [
@@ -143,7 +144,8 @@ app.on("ready", () => {
 	const argv = require("minimist")(process.argv.slice(1));
 
 	page.on("dom-ready", () => {
-		page.insertCSS(fs.readFileSync(path.join(__dirname, "browser.css"), "utf8"));
+		const enableDark = settings.value("window.theme").indexOf("true") !== -1;
+		page.insertCSS(fs.readFileSync(path.join(__dirname, enableDark ? "browserDark.css" : "browserWhite.css"), "utf8"));
 		if (argv.minimize)
 			win.minimize();
 		else
@@ -200,7 +202,13 @@ app.on("before-quit",
 	});
 
 settings.on("save",
-	(preferences) => { //Overgovnokod, I'm too lazy to think how to fix this.. Mb dropdown with key list + some chechboxes with super keys?..
+	(preferences) => {
+		let theme = settings.value("window.theme").indexOf("true") !== -1;
+		if (theme !== prevTheme) {
+			prevTheme = theme;
+			win.reload();
+		}
+		//Overgovnokod, I'm too lazy to think how to fix this.. Mb dropdown with key list + some chechboxes with super keys?..
 		if (binds.mute !== preferences.keyboard.mute) {
 			const toRemove = preferences.keyboard.mute === "";
 			if (binds.mute !== "" || toRemove)

@@ -43,7 +43,8 @@ module.exports = new ElectronPreferences({
 		window: {
 			controlsBehavior: [
 				"trayOnMinimize"
-			]
+			],
+			theme: []
 		}
 	},
     /**
@@ -76,6 +77,19 @@ module.exports = new ElectronPreferences({
 								'options': [
 									{ 'label': "Minimize to tray on window close", 'value': "trayOnClose" },
 									{ 'label': "Minimize to tray on window minimize", 'value': "trayOnMinimize" }
+								]
+							}
+						]
+					},
+					{
+						'label': "Appearance",
+						'fields': [
+							{
+								'label': "Choose window controls behavior:",
+								'key': "theme",
+								'type': "checkbox",
+								'options': [
+									{ 'label': "Enable dark theme", 'value': "true" }
 								]
 							}
 						]

@@ -1,0 +1,28 @@
+html {
+	overflow: hidden;
+}
+
+body {
+	border: 1px solid #48545c !important;
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol' !important;
+	text-rendering: optimizeLegibility !important;
+	font-feature-settings: 'liga', 'clig', 'dlig', 'kern';
+	overflow-y: hidden;
+}
+
+.footer, .head__left, .logo,
+.nav__level_0 .footer__static-text, .nav__banner {
+	display: none !important;
+}
+
+.nav__level_0 .nav__items {
+	padding-top: 30px !important;
+}
+
+.nav__level_0 .nav__banner {
+	padding-bottom: 0;
+}
+
+.page-root {
+	overflow-y: hidden !important;
+}
