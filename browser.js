@@ -1,11 +1,18 @@
 "use strict";
 const electron = require("electron");
-
+//const http = require('http');
 const ipc = electron.ipcRenderer;
 const webFrame = electron.webFrame;
 const el = electron.remote.require('./index').element;
 
 window.addEventListener("load", function () {
+	//http.get("http://use.fontawesome.com/releases/v5.7.1/css/all.css", function (res) {
+	//	res.setEncoding("utf8");
+	//	res.on("data", function (chunk) {
+	//		webFrame.insertCSS(chunk);
+	//	});
+	//});
+	//document.body.insertAdjacentHTML("afterbegin", "<header id='titlebar'><div id='drag-region'><div id='window-controls'><div class='controlButton' id='min-button'><span>&#xE921;</span></div><div class='controlButton' id='max-button'><span>&#xE922;</span></div><div class='controlButton' id='restore-button'><span>&#xE923;</span></div><div class='controlButton' id='close-button'><span>&#xE8BB;</span></div></div></div></header>");
 	window.Mu.pages.adapter.on("show-track", () => ipc.send("show-track", getCurrentTrack()));
 }, false);
 

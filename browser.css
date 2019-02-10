@@ -1,43 +1,90 @@
-html
-{
+html {
 	overflow: hidden;
 }
 
-body
-{
-	font-family: -apple-system,
-			BlinkMacSystemFont,
-			'Segoe UI',
-			Roboto,
-			Oxygen-Sans,
-			Ubuntu,
-			Cantarell,
-			'Helvetica Neue',
-			sans-serif,
-			'Apple Color Emoji',
-			'Segoe UI Emoji',
-			'Segoe UI Symbol' !important;
+body {
+	/*border: 1px solid #48545c !important;*/ /*Frameless only*/
+	font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol' !important;
 	text-rendering: optimizeLegibility !important;
 	font-feature-settings: 'liga', 'clig', 'dlig', 'kern';
-}
-
-/* Bind the toolbar as the window's draggable region */
-.page-root .head {
-	-webkit-app-region: drag;
+	/*overflow-y: hidden;*/
 }
 
 .footer, .head__left, .logo,
-.nav__level_0 .footer__static-text
-{
+.nav__level_0 .footer__static-text {
 	display: none !important;
 }
 
-.nav__level_0 .nav__items
-{
+.nav__level_0 .nav__items {
 	padding-top: 30px !important;
 }
 
-.nav__level_0 .nav__banner
-{
+.nav__level_0 .nav__banner {
 	padding-bottom: 0;
 }
+
+/*#titlebar {
+	color: #FFF;
+	-webkit-user-select: none;
+	display: block;
+	position: fixed;
+	height: 24px;
+	width: 100%;
+	background: #254053;
+	z-index: 100000;
+}
+
+	#titlebar #drag-region {
+		width: 100%;
+		height: 100%;
+		-webkit-app-region: drag;
+	}
+
+#window-controls {
+	display: grid;
+	grid-template-columns: repeat(3, 46px);
+	position: absolute;
+	top: 0;
+	right: 0;
+	height: 100%;
+	font-family: "Segoe MDL2 Assets" !important;
+	font-size: 8px;
+	-webkit-app-region: no-drag;
+}
+
+	#window-controls .controlButton {
+		grid-row: 1 / span 1;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		width: 100%;
+		height: 100%;
+		user-select: none;
+		cursor: default;
+		opacity: 0.8;
+	}
+
+	#window-controls #min-button {
+		grid-column: 1;
+	}
+
+	#window-controls #max-button, #window-controls #restore-button {
+		grid-column: 2;
+	}
+
+	#window-controls #close-button {
+		grid-column: 3;
+	}
+
+	#window-controls .controlButton:hover {
+		background: rgba(255,255,255,0.2);
+		opacity: 1;
+	}
+
+	#window-controls #close-button:hover {
+		background: #E81123;
+	}
+
+	#window-controls #restore-button {
+		display: none;
+	}*/

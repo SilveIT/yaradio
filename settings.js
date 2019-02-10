@@ -107,7 +107,7 @@ module.exports = new ElectronPreferences({
 								]
 							},
 							{
-								'label': "Delay",
+								'label': "Display time",
 								'key': "displayTime",
 								'type': "slider",
 								'min': 500,

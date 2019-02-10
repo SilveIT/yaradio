@@ -79,7 +79,7 @@ function updateIconMenu(win, app) {
 }
 
 function getClickHandler(onClick, onDblClick, delay) {
-	delay = delay || 250;
+	delay = delay || 500;
 	return function (event) {
 		if (clickHandlerTimeout <= 0) {
 			clickHandlerTimeout = setTimeout(function () {
@@ -119,7 +119,7 @@ exports.create = (win, app, eNotify) => {
 		}
 	};
 
-	var clickHandler = getClickHandler(click, dblclick, 250);
+	var clickHandler = getClickHandler(click, dblclick, 500);
 
 	appIcon.addListener("click", clickHandler);
 	appIcon.addListener("double-click", clickHandler);

@@ -7,14 +7,6 @@ const ctxMenu = require("./trayIcon");
 const settings = require("./settings");
 const app = electron.app;
 const ipc = electron.ipcMain;
-require("electron-context-menu")({
-	prepend: () => [
-		{
-			label: "Refresh page",
-			click: () => win.reload()
-		}
-	]
-});
 
 let binds = settings.value("keyboard");
 
@@ -22,6 +14,16 @@ let win;
 let quitting = false;
 
 let eNotify = null;
+
+require("electron-context-menu")({
+	prepend: (_, window) => [
+		{
+			label: "Refresh page",
+			click: () => win.reload(),
+			visible: window === win
+		}
+	]
+});
 
 const gotTheLock = app.requestSingleInstanceLock();
 
@@ -55,6 +57,7 @@ function createMainWindow() {
 		minHeight: 700,
 		titleBarStyle: "hidden-inset",
 		//autoHideMenuBar: true,
+		//frame: false,
 		backgroundColor: "#fff",
 		webPreferences: {
 			preload: path.join(__dirname, "browser.js"),
