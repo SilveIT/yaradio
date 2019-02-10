@@ -23,6 +23,14 @@ window.addEventListener("load", function () {
 	window.Mu.pages.adapter.on("show-track", () => ipc.send("trackChanged", getCurrentTrack()));
 	//Handle player state changed event
 	window.Mu.pages.adapter.on("state", () => ipc.send("stateChanged", window.Mu.pages.adapter.isPlaying()));
+	//DESTROYING FUCKING ANTIADBLOCK MESSAGE
+	window.Mu.blocks.blocks.notify.prototype.addMessage = (function () {
+		var oldAddMessage = window.Mu.blocks.blocks.notify.prototype.addMessage;
+		return function () {
+			if (arguments && arguments.length > 0 && arguments[0].indexOf("реклам") !== -1) return;
+			oldAddMessage.apply(this, arguments);
+		};
+	})();
 }, false);
 
 function getCurrentTrack() {
@@ -55,7 +63,7 @@ exports.preferences = () => {
 		pref.style.top = `${h - ph}px`;
 		pref.style.left = `${w - pw}px`;
 	}, 25);
-}
+};
 
 exports.logout = () =>
 	exec("window.open('https://passport.yandex.ru/passport?mode=embeddedauth&action=logout&retpath=https%3A%2F%2Fradio.yandex.ru&origin=radio_menu', '_blank')");

@@ -1,3 +1,5 @@
+/* BASE */
+
 html {
 	overflow: hidden;
 }
@@ -27,9 +29,790 @@ body {
 	overflow-y: hidden !important;
 }
 
+.titlebar {
+	filter: invert(1) !important;
+}
+
+/* COLOR */
+:root {
+	--color_bg1: #15161a;
+	--color_bg2: #1f2226;
+	--color_bg3: #2a2e33;
+	--color_bg3_95p: rgba(42, 46, 51, 0.95);
+	--color_bg4: #343a40;
+	--color_bg5: #3f474d;
+	--color_bg6: #495359;
+	--color_bg7: #546066;
+	--color_bg8: #5e6e73;
+	--color_accent1: #e5e5e5;
+	--color_accent1_op50p: rgba(229, 229, 229, 0.75);
+	--color_accent2: #f2f2f2;
+	--color_accent2_op30p: rgba(242, 242, 242, 0.3);
+	--color_fg1: #e9f2f2;
+	--color_fg2: #dce5e5;
+	--color_fg3: #d0d7d9;
+	--color_fg4: #c4cacc;
+	--color_fg5: #b8bdbf;
+}
+
+.nav__item:hover {
+	background: #495359 !important;
+}
+
+.hq .hq_active .icon.icon_hq, body .d-equalizer_active .d-icon_equalizer, .nav__item:hover {
+	filter: invert(0) saturate(0) !important;
+}
+
+span.icon.icon_like, span.icon.icon_dislike {
+	filter: invert(0) !important;
+}
+
+/* ACCENT */
+.button_action.button,
+.progress__progress .progress__line,
+.slider-vert:hover .slider-vert__filled,
+.select__item:hover,
+.nav__popup-item:hover,
+.button2,
+.add-to-popup__head .add-to-popup__item:hover,
+.add-to-popup__item:hover,
+.button_round.button_checked, .button_round.button_checked.button_transparent.button:hover, .button_round.button_checked:hover, .theme-white .deco-button-selector.active, .local-theme-white.deco-button-selector.active, .local-theme-white .deco-button-selector.active, .track__bubble, .button_action.button:focus, .theme-white .deco-button-grouped.active .deco-button-stylable, .local-theme-white.deco-button-grouped.active .deco-button-stylable, .local-theme-white .deco-button-grouped.active .deco-button-stylable {
+	background: var(--color_accent1) !important;
+}
+
+.spinner__circle:before {
+	box-shadow: inset 0 0 0 2px var(--color_accent1);
+}
+
+.slider-vert__filled, .d-slider-vert__filled {
+	background: var(--color_accent1_op50p) !important;
+}
+
+.button_action.button:hover,
+.button_action.button:active,
+.button2:hover, .button2:focus, .theme-white .deco-button-selector.d-select__item_selected:hover, .theme-white .deco-button-grouped.active:hover .deco-button-stylable, .local-theme-white.deco-button-grouped.active:hover .deco-button-stylable, .local-theme-white .deco-button-grouped.active:hover .deco-button-stylable, .d-track__bubble, .d-slider-vert:hover .d-slider-vert__filled {
+	background: var(--color_accent2) !important;
+}
+
+.track_selectable.track:hover:before, .track_selectable.track_hover:before, .track_selectable.track_selected:before,
+.button_action.button,
+.artist__content:hover:before, .artist__content_hover:before, .artist__content_selected:before,
+.artist_hover .artist__content:before, .artist_selected .artist__content:before,
+.concert_selectable.concert:hover:before, .concert_selectable.concert_hover:before, .concert_selectable.concert_selected:before,
+.album_selectable.album:hover:before, .album_selectable.album_hover:before, .album_selectable.album_selected:before,
+.button:focus,
+.playlist_selectable.playlist:hover:before, .playlist_selectable.playlist_hover:before, .playlist_selectable.playlist_selected:before,
+._nb-small-simple-input:focus, .event__playlist:hover:before, .event__playlist_hover:before, .event__playlist_selected:before, .d-track_selectable:hover:after, .d-track_selectable.d-track_hover:after, .d-track_selectable.d-track_selected:after, .theme-white .deco-input_transparent:focus, body .local-theme-white.deco-input_transparent:focus, body .local-theme-white .deco-input_transparent:focus, .theme-white .deco-input_transparent.focus, body .local-theme-white.deco-input_transparent.focus, body .local-theme-white .deco-input_transparent.focus {
+	border: 1px solid var(--color_accent1) !important;
+}
+
+.button:focus {
+	box-shadow: inset 0 0 0 1px var(--color_accent1) !important;
+}
+
+.link_major,
+.editorial__description a,
+.footer .link, .footer__arrow,
+.page-playlist__desc a, .page-playlist__desc a:active, .page-playlist__desc a:visited, .promo-slider__stamp, .theme-white .deco-link_marked, .local-theme-white.deco-link_marked, .local-theme-white .deco-link_marked, .page-artist__desc a, .page-artist__desc a:active, .page-artist__desc a:visited, .theme-white .deco-link-pill, body .local-theme-white.deco-link-pill, body .local-theme-white .deco-link-pill {
+	color: var(--color_accent1) !important;
+}
+
+.nb-toggler > input:focus + ._nb-toggler-view:after, .nb-toggler > input:focus + ._nb-toggler-view:hover:after {
+	box-shadow: inset 0 0 0 1px var(--color_accent1) !important;
+}
+
+.link:hover,
+.editorial__description a:hover,
+.footer .link:hover, .footer__arrow:hover, .theme-white .typo-nav:hover, .local-theme-white.typo-nav:hover, .local-theme-white .typo-nav:hover, .promo-slider__wrapper:hover .promo-slider__link-container .promo-slider__link-title, .local-theme-white.deco-link:hover, .local-theme-white .deco-link:hover, .page-artist__desc a:hover, .page-main__subtitle-wrapper:hover .page-main__subtitle, .page-main__subtitle-wrapper:hover .page-main__description .d-link, .theme-white .deco-link-pill:hover, body .local-theme-white.deco-link-pill:hover, body .local-theme-white .deco-link-pill:hover {
+	color: var(--color_accent2) !important;
+}
+
+.artist__content:hover, .artist__content_hover, .artist__content_selected,
+.track_selectable.track:hover, .track_selectable.track_hover, .track_selectable.track_selected,
+.concert_selectable.concert:hover, .concert_selectable.concert_hover, .concert_selectable.concert_selected,
+.theme-white .typo-nav.current, .local-theme-white.typo-nav.current, .local-theme-white .typo-nav.current, .tabs__tab_current {
+	border-top-color: var(--color_accent1) !important;
+	border-bottom-color: var(--color_accent1) !important;
+}
+
+.button_action.button,
+.button_action.button:hover {
+	border: none !important;
+}
+
+.page-genre__overview .button_round.button_transparent:active, .promo_colored .button_round.button_transparent:active {
+	background: var(--color_accent2_op30p) !important;
+}
+
+/* FOREGROUND */
+
+*,
+.event__title,
+.track__title,
+.link,
+.head__suggest-input, .head__suggest-input:focus, .nb-is-focused .head__suggest-input, .page-main__description, .playlist_description .playlist__description, .theme-white .deco-button-grouped.active .deco-button-stylable, body .local-theme-white.deco-button-grouped.active .deco-button-stylable, body .local-theme-white .deco-button-grouped.active .deco-button-stylable {
+	color: var(--color_fg5) !important;
+}
+
+.nav__tab, .nav__tab:active,
+.tooltip_theme_light .tooltip__content,
+.tooltip__static-text,
+.page-feed__more,
+.slider-vert__track:after, .slider-vert__track:before,
+.equalizer-band__min, .equalizer-band__max, .equalizer-band__zero,
+.equalizer-band__hz,
+.equalizer__select .button-arrow__text,
+.nav__popup-item, .nav__popup-item:visited,
+.footer__social-link .link,
+.app-sms_theme_banner .app-sms__description,
+.add-to-popup__foot input,
+.sidebar-track__translate-link,
+.event_removed .event__description,
+.theme-white .typo-nav.current, .local-theme-white.typo-nav.current, .local-theme-white .typo-nav.current,
+.theme-white .typo-nav_contrast, .local-theme-white.typo-nav_contrast, .local-theme-white .typo-nav_contrast, .typo, .typo-h1, .typo-h1_small, .typo-h1_big, .typo-h2, .typo-h2_bold, .typo-h3, .typo-add, .typo-caps, .typo-small, .typo-small_bold, .promo-slider__link-title, .theme-white .typo, .local-theme-white.typo, .local-theme-white .typo, .theme-white .typo-h1, .local-theme-white.typo-h1, .local-theme-white .typo-h1, .theme-white .typo-h2, .local-theme-white.typo-h2, .local-theme-white .typo-h2, .theme-white .typo-h2_bold, .local-theme-white.typo-h2_bold, .local-theme-white .typo-h2_bold, .theme-white .typo-h3, .local-theme-white.typo-h3, .local-theme-white .typo-h3, .theme-white .typo-h3_bold, .local-theme-white.typo-h3_bold, .local-theme-white .typo-h3_bold, .theme-white .typo-small, .local-theme-white.typo-small, .local-theme-white .typo-small, .theme-white .typo-small_bold, .local-theme-white.typo-small_bold, .local-theme-white .typo-small_bold, .theme-white .typo-track_bold, .local-theme-white.typo-track_bold, .local-theme-white .typo-track_bold, .theme-white .typo-header_bold, .local-theme-white.typo-header_bold, .local-theme-white .typo-header_bold, .page-main__subtitle, .local-theme-white.deco-link, .local-theme-white .deco-link, .theme-white .deco-button .deco-button-stylable, .local-theme-white.deco-button .deco-button-stylable, .local-theme-white .deco-button .deco-button-stylable, .theme-white .deco-button-action .deco-button-stylable, .local-theme-white.deco-button-action .deco-button-stylable, .local-theme-white .deco-button-action .deco-button-stylable, .theme-white .deco-button-caution .deco-button-stylable, .local-theme-white.deco-button-caution .deco-button-stylable, .local-theme-white .deco-button-caution .deco-button-stylable, .theme-white .deco-button-selector .deco-button-stylable, .local-theme-white.deco-button-selector .deco-button-stylable, .local-theme-white .deco-button-selector .deco-button-stylable, .theme-white .deco-button-selector, .local-theme-white.deco-button-selector, .local-theme-white .deco-button-selector, .album-summary__pregroup .link, .d-equalizer-band__hz, .d-equalizer-band__min, .d-equalizer-band__max, .d-equalizer-band__zero, .theme-white .deco-toggler-text, body .local-theme-white.deco-toggler-text, body .local-theme-white .deco-toggler-text, .theme-white .deco-input:focus, body .local-theme-white.deco-input:focus, body .local-theme-white .deco-input:focus, .theme-white .deco-input.focus, body .local-theme-white.deco-input.focus, body .local-theme-white .deco-input.focus, .theme-white .deco-typo, body .local-theme-white.deco-typo, body .local-theme-white .deco-typo, .theme-white .deco-input, body .local-theme-white.deco-input, body .local-theme-white .deco-input {
+	color: var(--color_fg4) !important;
+}
+
+.deco-popup-menu__item:hover, .deco-popup-menu__item:hover {
+	background-color: #cbc5bf !important;
+	filter: invert(1) !important;
+}
+
+/*.multi-auth__item:hover, .multi-auth__item:active {
+	color: #474240 !important;
+}*/
+
+.theme-white .deco-link, .d-album-summary__pregroup .link {
+	color: var(--color_fg3) !important;
+}
+
+.button2_hollow.button2_rounded.button2_w-icon .button2__label {
+	color: var(--color_fg3) !important;
+}
+
+.select__link, .select__text,
+.editorial__title,
+.event_removed .event__title,
+.user_no-link ._link:hover {
+	color: var(--color_fg2) !important;
+}
+
+.nav__tab:hover,
+.page-feed__more:hover,
+.button-arrow.theme1:hover .button-arrow__text,
+.link.popup-sequence__history-tab:hover,
+.tabs__tab .link:hover,
+.title_hover:hover .title__label,
+.footer__social-link .link:hover,
+.page-artist__more:hover,
+.page-playlist__desc-text_empty:hover, .theme-white .deco-button:hover .deco-button-stylable, .local-theme-white.deco-button:hover .deco-button-stylable, .local-theme-white .deco-button:hover .deco-button-stylable, .theme-white .deco-button-action:hover .deco-button-stylable, .local-theme-white.deco-button-action:hover .deco-button-stylable, .local-theme-white .deco-button-action:hover .deco-button-stylable, .theme-white .deco-button-caution:hover .deco-button-stylable, .local-theme-white.deco-button-caution:hover .deco-button-stylable, .local-theme-white .deco-button-caution:hover .deco-button-stylable, .theme-white .deco-button-selector:hover .deco-button-stylable, .local-theme-white.deco-button-selector:hover .deco-button-stylable, .local-theme-white .deco-button-selector:hover .deco-button-stylable, .theme-white .deco-button.hover .deco-button-stylable, .local-theme-white.deco-button.hover .deco-button-stylable, .local-theme-white .deco-button.hover .deco-button-stylable, .theme-white .deco-button-action.hover .deco-button-stylable, .local-theme-white.deco-button-action.hover .deco-button-stylable, .local-theme-white .deco-button-action.hover .deco-button-stylable, .theme-white .deco-button-caution.hover .deco-button-stylable, .local-theme-white.deco-button-caution.hover .deco-button-stylable, .local-theme-white .deco-button-caution.hover .deco-button-stylable, .theme-white .deco-button-selector.hover .deco-button-stylable, .local-theme-white.deco-button-selector.hover .deco-button-stylable, .local-theme-white .deco-button-selector.hover .deco-button-stylable, .d-select__item:hover .d-select__item-text, .links__link.deco-button-selector:hover .links__link_text {
+	color: var(--color_fg1) !important;
+}
+
+.promo a, .promo a:link,
+.button:hover .button__label,
+.teaser__content_type_full .teaser__text, .theme-white .typo-nav.current:hover, .local-theme-white.typo-nav.current:hover, .local-theme-white .typo-nav.current:hover {
+	color: var(--color_fg1) !important;
+}
+
+.promo__description,
+.event .editorial__title {
+	color: var(--color_fg4) !important;
+}
+
+.button_action.button .button__label,
+.progress__left, .progress__right,
+._nb-toggler-on,
+.select__item:hover .select__link, .select__item:hover .select__text,
+.nav__popup-item:hover,
+.button2_rounded .button2__label,
+.add-to-popup__head .add-to-popup__item:hover,
+.add-to-popup__item:hover,
+.d-select__item_selected .d-select__item-text, .theme-white .deco-button-selector.d-select__item_selected:hover .d-select__item-text, .theme-white .deco-button-grouped.active .deco-button-stylable .d-button__label, .local-theme-white.deco-button-grouped.active .deco-button-stylable, .local-theme-white .deco-button-grouped.active .deco-button-stylable, .theme-white .deco-popup-menu__item:hover .d-context-menu__item-title, .theme-white .deco-popup-menu__item:hover .d-toggler__label, .theme-white .deco-popup-menu__item:hover .d-link.deco-link, .d-share__item.deco-popup-menu__item:hover .ya-share2__link span, .d-link.deco-link.multi-auth__item.typo-main.deco-popup-menu__item:hover .multi-auth__user-add_caption {
+	color: var(--color_bg1) !important;
+}
+
+.multi-auth__premium {
+	color: #77d709 !important;
+}
+
+.multi-auth__item:hover .multi-auth__premium {
+	color: #356104 !important;
+}
+
+.notice_positive {
+	background: none !important;
+	border-color: #779646 !important;
+}
+
+.theme-white .typo-nav.current.hyperactive, .local-theme-white.typo-nav.current.hyperactive, .local-theme-white .typo-nav.current.hyperactive, .theme-white .typo-nav.current.hyperactive:hover, .local-theme-white.typo-nav.current.hyperactive:hover, .local-theme-white .typo-nav.current.hyperactive:hover {
+	color: var(--color_fg4) !important;
+}
+
+/* BACKGROUNDS */
+
+li.multi-auth__line:hover {
+	filter: invert(1) !important;
+}
+
+.button-radio-slider__item:hover {
+	background-color: var(--color_bg6) !important;
+}
+
+.button-radio-slider .active:hover, .button-radio-slider__selector {
+	background-color: var(--color_fg5) !important;
+}
+
+.button-radio-slider__item.active > span {
+	filter: invert(1) !important;
+}
+
+.background__content_gradient {
+	background-image: radial-gradient(circle, rgba(184, 189, 191, 0.9) 0, rgba(184, 189, 191, 0.5) 20%, rgba(184, 189, 191, 0.2) 35%, rgba(184, 189, 191, 0.14) 40%, rgba(184, 189, 191, 0.05) 50%, rgba(184, 189, 191, 0) 70%) !important;
+}
+
+.local-theme-white.deco-button-group, .local-theme-white .deco-button-group, .theme-white .deco-button-group .d-button:after, .local-theme-white.deco-button-group .d-button:after, .local-theme-white .deco-button-group .d-button:after {
+	background-color: var(--color_bg1) !important;
+}
+
 body,
-.track__cover, .nb-user-avatar,
-.station-icon, .station__title, .background,
-.nav__banner-content, .footer__static-text, .track__menu-wrapper {
-	filter: invert(100%);
+.centerblock-wrapper,
+.popup-sequence__content,
+.page-genre__promo-date-content,
+.head__suggest-input,
+.page-artist__promo-date-content,
+.page-playlist__title_edit,
+.action-group__item .select:hover,
+.action-group__item .button,
+.serp-hint,
+.loading, .theme-white .deco-pane, body .local-theme-white.deco-pane, body .local-theme-white .deco-pane, .theme-white .deco-pane-back, body .local-theme-white.deco-pane-back, body .local-theme-white .deco-pane-back, .theme-white .deco-pane-secondary, body .local-theme-white.deco-pane-secondary, body .local-theme-white .deco-pane-secondary, .theme-white .deco-pane-popup, body .local-theme-white.deco-pane-popup, body .local-theme-white .deco-pane-popup, .theme-white .deco-button-group {
+	background: none !important;
+	background-color: var(--color_bg2) !important;
+}
+
+	.head,
+	.sidebar,
+	.event__tracks,
+	.artist__content,
+	.sidebar-cont,
+	.concert,
+	.album_selectable.album,
+	.more .button,
+	.page-feed__more,
+	.popup-sequence__header,
+	.popup-sequence .tabs,
+	.popup-sequence__close-wrapper,
+	.nav__subnav,
+	.page-genre__more:active,
+	.playlist_selectable.playlist,
+	.add-to-popup__foot input,
+	.sidebar-track .action-group__item .button,
+	.event_removed,
+	.page-playlist__recommends, .promo-slider__button, .theme-white .deco-popup-menu, body .local-theme-white.deco-popup-menu, body .local-theme-white .deco-popup-menu, .popup-sequence__header-content, .theme-white .deco-input, body .local-theme-white.deco-input, body .local-theme-white .deco-input, .theme-white .deco-button.active .deco-button-stylable, body .local-theme-white.deco-button.active .deco-button-stylable, body .local-theme-white .deco-button.active .deco-button-stylable, .theme-white .deco-button-action.active .deco-button-stylable, body .local-theme-white.deco-button-action.active .deco-button-stylable, body .local-theme-white .deco-button-action.active .deco-button-stylable, .theme-white .deco-button-caution.active .deco-button-stylable, body .local-theme-white.deco-button-caution.active .deco-button-stylable, body .local-theme-white .deco-button-caution.active .deco-button-stylable, .theme-white .deco-button-selector.active .deco-button-stylable, body .local-theme-white.deco-button-selector.active .deco-button-stylable, body .local-theme-white .deco-button-selector.active .deco-button-stylable, .theme-white .deco-link-pill, body .local-theme-white.deco-link-pill, body .local-theme-white .deco-link-pill, .theme-white .deco-popup-suggest-menu, body .local-theme-white.deco-popup-suggest-menu, body .local-theme-white .deco-popup-suggest-menu {
+		background: none !important;
+		background-color: var(--color_bg3) !important;
+	}
+
+		.button-radio-slider,
+		.nav__level,
+		.track_selectable.track:hover,
+		.artist__content:hover,
+		.concert_selectable.concert:hover,
+		.album_selectable.album:hover,
+		.button:active,
+		.page-feed__more:active,
+		.volume__bar,
+		.popup-sequence .button,
+		.button,
+		.playlist_selectable.playlist:hover,
+		.page-artist__promo-date:after,
+		.add-to-popup__list,
+		.sidebar-track .action-group__item .button:hover,
+		._nb-popup,
+		._nb-popup-tail:before, .theme-white .deco-toggler-bg, .local-theme-white.deco-toggler-bg, .local-theme-white .deco-toggler-bg, .page-album__controls .button_round:active, .bar__content, .theme-white .deco-button .deco-button-stylable, body .local-theme-white.deco-button .deco-button-stylable, body .local-theme-white .deco-button .deco-button-stylable, .theme-white .deco-button-action .deco-button-stylable, body .local-theme-white.deco-button-action .deco-button-stylable, body .local-theme-white .deco-button-action .deco-button-stylable, .theme-white .deco-button-caution .deco-button-stylable, body .local-theme-white.deco-button-caution .deco-button-stylable, body .local-theme-white .deco-button-caution .deco-button-stylable, .theme-white .deco-button-selector .deco-button-stylable, body .local-theme-white.deco-button-selector .deco-button-stylable, body .local-theme-white .deco-button-selector .deco-button-stylable,
+		.button2_hollow, .theme-white .deco-button-simple, .theme-white .deco-popup-menu__item-icon-bg, body .local-theme-white.deco-popup-menu__item-icon-bg, body .local-theme-white .deco-popup-menu__item-icon-bg, .multi-auth__item:hover, .theme-white .deco-link-pill:hover, body .local-theme-white.deco-link-pill:hover, body .local-theme-white .deco-link-pill:hover, .theme-white .deco-pane_show-hover-pressed, body .local-theme-white.deco-pane_show-hover-pressed, body .local-theme-white .deco-pane_show-hover-pressed {
+			background-color: var(--color_bg4) !important;
+		}
+
+.multi-auth__item {
+	background-color: var(--color_bg3) !important;
+}
+
+.promo__controls .button,
+.button_transparent {
+	background-color: transparent !important;
+}
+
+.bar {
+	background-color: var(--color_bg3_95p) !important;
+}
+
+.progress__bg,
+.tooltip_theme_light .tooltip__content,
+.button_round:hover,
+.volume__control,
+.popup,
+.button:hover,
+.action-group__item .button:hover,
+.share__tail, .theme-white .deco-button-simple, .local-theme-white.deco-button-simple, .local-theme-white .deco-button-simple, .local-theme-white.deco-button .deco-button-stylable, .local-theme-white .deco-button .deco-button-stylable, .theme-white .deco-button-action .deco-button-stylable, .local-theme-white.deco-button-action .deco-button-stylable, .local-theme-white .deco-button-action .deco-button-stylable, .theme-white .deco-button-caution .deco-button-stylable, .local-theme-white.deco-button-caution .deco-button-stylable, .local-theme-white .deco-button-caution .deco-button-stylable, .theme-white .deco-button-selector .deco-button-stylable, .local-theme-white.deco-button-selector .deco-button-stylable, .local-theme-white .deco-button-selector .deco-button-stylable, .theme-white .deco-button:hover .deco-button-stylable, .local-theme-white.deco-button:hover .deco-button-stylable, .local-theme-white .deco-button:hover .deco-button-stylable, .theme-white .deco-button-action:hover .deco-button-stylable, .local-theme-white.deco-button-action:hover .deco-button-stylable, .local-theme-white .deco-button-action:hover .deco-button-stylable, .theme-white .deco-button-caution:hover .deco-button-stylable, .local-theme-white.deco-button-caution:hover .deco-button-stylable, .local-theme-white .deco-button-caution:hover .deco-button-stylable, .theme-white .deco-button-selector:hover .deco-button-stylable, .local-theme-white.deco-button-selector:hover .deco-button-stylable, .local-theme-white .deco-button-selector:hover .deco-button-stylable, .theme-white .deco-button.hover .deco-button-stylable, .local-theme-white.deco-button.hover .deco-button-stylable, .local-theme-white .deco-button.hover .deco-button-stylable, .theme-white .deco-button-action.hover .deco-button-stylable, .local-theme-white.deco-button-action.hover .deco-button-stylable, .local-theme-white .deco-button-action.hover .deco-button-stylable, .theme-white .deco-button-caution.hover .deco-button-stylable, .local-theme-white.deco-button-caution.hover .deco-button-stylable, .local-theme-white .deco-button-caution.hover .deco-button-stylable, .theme-white .deco-button-selector.hover .deco-button-stylable, .local-theme-white.deco-button-selector.hover .deco-button-stylable, .local-theme-white .deco-button-selector.hover .deco-button-stylable, .theme-white .deco-button-selector, .local-theme-white.deco-button-selector, .local-theme-white .deco-button-selector, .theme-white .deco-pane-popup, .local-theme-white.deco-pane-popup, .local-theme-white .deco-pane-popup, .theme-white .deco-input:focus, body .local-theme-white.deco-input:focus, body .local-theme-white .deco-input:focus, .theme-white .deco-input.focus, body .local-theme-white.deco-input.focus, body .local-theme-white .deco-input.focus, .button2_hollow:hover, .button2_hollow:focus, .theme-white .deco-button-grouped.active .deco-button-stylable, body .local-theme-white.deco-button-grouped.active .deco-button-stylable, body .local-theme-white .deco-button-grouped.active .deco-button-stylable, .theme-white .deco-button:hover .deco-button-stylable, body .local-theme-white.deco-button:hover .deco-button-stylable, body .local-theme-white .deco-button:hover .deco-button-stylable {
+	background-color: var(--color_bg5) !important;
+}
+
+	.slider-vert__track,
+	.button-arrow.theme1,
+	.page-genre__promo-date:after, .theme-white .deco-button-selector:hover, .local-theme-white.deco-button-selector:hover, .local-theme-white .deco-button-selector:hover, .theme-white .deco-button-selector.hover, .local-theme-white.deco-button-selector.hover, .local-theme-white .deco-button-selector.hover, .d-slider-vert__track {
+		background-color: var(--color_bg7) !important;
+	}
+
+.slider-vert__drag,
+._nb-small-toggler ._nb-toggler-view-content:after {
+	background-color: var(--color_fg3) !important;
+}
+
+.page-playlist__controls__addons .share, .page-artist__actions__addons .share {
+	box-shadow: none !important;
+}
+
+.d-track__actions button span, .share-container .d-button_rounded .deco-button-stylable {
+	background-color: transparent !important;
+}
+
+/* LAYOUT */
+.track_selectable.track:hover:before, .track_selectable.track_hover:before, .track_selectable.track_selected:before {
+	border: 1px solid var(--color_accent1) !important;
+}
+
+.artist__bg {
+	opacity: 0 !important;
+}
+
+.album {
+	margin: 4px !important;
+}
+
+.popup__close {
+	opacity: .3 !important;
+}
+
+	.popup__close:hover {
+		opacity: .85 !important;
+	}
+
+.page-artist__actions__addons .share .icon {
+	margin: 7px 7px 8px 6.7px !important;
+}
+
+.track_selectable.track, .track_selectable.track_hover, .track_selectable.track_selected {
+	border: 1px solid transparent !important;
+}
+
+.tooltip__content {
+	box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.5) !important;
+}
+
+.artist__content,
+.event__tracks,
+.concert,
+.album_selectable.album,
+.promo,
+.playlist_selectable.playlist {
+	box-shadow: 0 6px 12px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+.concert {
+	margin: 0 !important;
+}
+
+.promo_colored,
+.teaser__content {
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjEwNDBDMDUxMTYxODExRTc5QzEwOTI3NUYyQTAyRTRBIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjEwNDBDMDUyMTYxODExRTc5QzEwOTI3NUYyQTAyRTRBIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6MTA0MEMwNEYxNjE4MTFFNzlDMTA5Mjc1RjJBMDJFNEEiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6MTA0MEMwNTAxNjE4MTFFNzlDMTA5Mjc1RjJBMDJFNEEiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz6lt4mYAAAAR0lEQVR42uzPMREAIAwAsQfllY4Lhl7iIKeaFrgtISIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIiIvLHE2AAcrsA5PmZcMAAAAAASUVORK5CYII=') !important;
+}
+
+.links__link .link {
+	background-position: 0 -2px !important;
+}
+
+.add-to-popup__item {
+	padding: 7px 18px 7px 46px !important;
+}
+
+.button2_rounded.button2_w-icon.button2_w-icon-centered .icon {
+	left: 52%;
+	top: 54%;
+	margin-left: -12px !important;
+}
+
+.page-playlist__controls__addons .share .icon {
+	margin: 7px 7px 6px 6.5px !important;
+}
+
+.theme-white .deco-link_marked.deco-link_arrow:after, .local-theme-white.deco-link_marked.deco-link_arrow:after, .local-theme-white .deco-link_marked.deco-link_arrow:after {
+	background-image: none !important;
+	content: '' !important;
+	display: inline-block !important;
+	width: 7px !important;
+	height: 7px !important;
+	border-right: 1.4px solid var(--color_fg4) !important;
+	border-top: 1.4px solid var(--color_fg4) !important;
+	transform: rotate(45deg) !important;
+	transition-duration: 0.1s !important;
+}
+
+.icon-theme-white .d-icon_arrow-right, .local-icon-theme-white.d-icon_arrow-right, .local-icon-theme-white .d-icon_arrow-right {
+	background-image: none !important;
+	content: '' !important;
+	display: inline-block !important;
+	width: 10px !important;
+	height: 10px !important;
+	border-right: 2px solid var(--color_accent1) !important;
+	border-top: 2px solid var(--color_accent1) !important;
+	transform: rotate(45deg) !important;
+	transition-duration: 0.1s !important;
+}
+
+.promo-slider_rounded .promo-slider__button .d-icon_arrow-right {
+	position: absolute !important;
+	left: 58% !important;
+	top: 64% !important;
+}
+
+.promo-slider_rounded .promo-slider__button .d-icon_arrow-left {
+	position: absolute !important;
+	left: 74% !important;
+	top: 64% !important;
+}
+
+.promo-slider_rounded .promo-slider__button:hover .d-icon_arrow-left {
+	position: absolute !important;
+	left: 69% !important;
+	top: 62% !important;
+}
+
+.promo-slider_rounded .promo-slider__button:hover .d-icon_arrow-right {
+	position: absolute !important;
+	left: 57% !important;
+	top: 61% !important;
+}
+
+.icon-theme-white .d-icon_arrow-left, .local-icon-theme-white.d-icon_arrow-left, .local-icon-theme-white .d-icon_arrow-left {
+	background-image: none;
+	content: '';
+	display: inline-block;
+	width: 10px;
+	height: 10px;
+	border-left: 2px solid var(--color_accent1) !important;
+	border-bottom: 2px solid var(--color_accent1) !important;
+	transform: rotate(45deg);
+	transition-duration: 0.1s;
+}
+
+.theme-white .deco-link_arrow:hover:after, .local-theme-white.deco-link_arrow:hover:after, .local-theme-white .deco-link_arrow:hover:after {
+	right: -24px;
+	background-image: none;
+	border-right-color: var(--color_accent2) !important;
+	border-top-color: var(--color_accent2) !important;
+}
+
+.d-input_suggest .suggest-button {
+	top: 0;
+}
+
+.day__head, .head__suggest-input, .head__suggest-input:focus, .nb-is-focused .head__suggest-input,
+.event__title, .track__title, .head__suggest-input, .head__suggest-input:focus, .nb-is-focused .head__suggest-input,
+.link, .nav__link,
+.sidebar__subtitle,
+.album__version {
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.25) !important;
+}
+
+.promo__title .link,
+.promo__subtitle .link {
+	text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+.editorial__description {
+	line-height: 1.618em;
+}
+
+.add-to-popup__item {
+	font-size: 14px;
+}
+
+.d-chart-position {
+	letter-spacing: 0;
+}
+
+/* GRAPHICS */
+.logo__ru {
+	background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAG4AAAAuCAYAAADJAyyXAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAABR5JREFUeNrsW91x2zAMtny9vPRFI6gTRBtYnqDuBFUmSDxBrAliT2B1ArsTyJnAzgRWJ7Be8tIXF3QpV0FAEdSfFZe44+UiQRTJjwA+gPJgYOVDiqNT+P154MGfENpIXgoUqim08c3r6a+VluWTBrBHCRpHPNkscJcCDkDz4U8CzbVL9EGA04C2Qf8Hdgl7AByA5ipAm0OLIH5lSP9ol7AfFvdEgDYFwOZ2qfolQ4I9vnGNFrSeAwcyIe5P7RL1H7iv6N4OrG1nl6j/wAUaBmmlb8DJ+Ibll12e/lscBZx1kx8pAf8f5Xg8CjZ9C82XG/bFcZy4J+NJxXhE6IIxvTUmcJWBSKZRC3Qv0D1zRKIYpI/UDiUTCo4Gwlgg8e694vGtuK95njO/kOjbL5nfvmRKYkwTTE6weB1tMFfzf1u7Oi/tqeZ5ug96Xo13uLKo8Yb0vbOcf1aWaNZdjGlZBC4llG6v2DWKBV0Rm2RHbKJljVc9EO+YKjYR9R6K2UfY7R2Q29t25CoDrosjdIVbmRUatx+se8gtS+HagiquUvZblKWiny3hEvPxuNBW8npCgbA0jXM9AC6p8D6XWNAQ6STMBVe+T7EBPGYMVOn5FAgUQdleIXChjgxxdBjAYZIxY1obyzWfycnN68mfYp/qC0u8shCHS3trQgdfc3UMkyAaRasRx2FzQs+ThKMoC9OSVx44M3QtFJYHbdJDELIKz2D3/4IVgPVlCkbHlUcMhqJPvKYZxTi1CbgoKgNAU4LhiEGv4N6la5i+btEZKYCOSRYZXWCaHhHWlgIYM4X6iMEieZUTAC8GgDIJnsvYsV1K3RzPa8hqTawtamMjkiUvAG8N4G1k8hg2mD8lDYOR1rTYPH6FBKieaV4rqxoeSrZjg42U1gJOgpcBeJH0wy7qPK1ofXWt9bYmcJQkDVr7E5doKMhOfeAKZo8H/C0/YL3Ax0JuC8A1KR5h4es23H7ZB7E+4SbjmqfiG8UE/CoWC27IFLhRy8DFaM3uwbLmCkbZjgBwCZFge5dKwEXOU5Z8M0tQiekJgiamvat4ENdm3HmrSmucPO5cRSHiUXzh3wVgq3yu0MdzmwOUHgCTkXtZ1G6UNQ+ZQVZHa7uQETP/urQsCDCearBeHnBgbSHRQdyDX+EEqMKwbqLSYlLKYlrdjojlIS4cg96GwZp5wMlP0B/7Zm1ETW9dsatdnV1uIBEjMadYceUY90BQ2j5YG67p/ahoDdQu/95CrNtwrI7QcfERE4dFusRh6lHx6V6nrBIdkey5LE+hsyLY3KSiJyg71qFY4xLpUGdxewMyozxIXWqeaR04sahlh54V3jchFutgQsXrpB84phKHuieAdeA5EgBhVXsikH/BP63CwKFLY3mud54YciEOBRwuOwk96VYESF9RHIo0lR6cEItP7ebonVtFbBP6PwskxpOEwYc+xhRwZfOj5jb4W78cF3RmJfFvUYjLeaFidH5ekWzPGFbamsVR35DUEDwuv0IffkULTxjj2ZrOZ6hItskT22sRSdnvatYhm2SYY8O81BsqWNWizEWa5Ek9Bi+WC6ZjzOL+XcW8UcUwg6IFy1rmmKi6UGOJxNgdmbsV3UDGLSTLQrRr+hwz8GPfH5WcJL9zT8iLjBWpwJmwyMqMX9iA4lBzzf2UoOGcNR+PWyjV7apunq6T7hmnWMuMK8HgymQ4sGKBs2KBa5r4pNcGnNPXgcnKga+pM5YF+Jy+Z10TjC7kjwADAEKT2PwJJBbwAAAAAElFTkSuQmCC');
+	background-size: 70px 27px;
+	background-position: -1px 6px;
+	background-repeat: no-repeat;
+}
+
+.logo__ya-sub {
+	background-image: url('data:image/png;base64,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');
+	background-size: 71px 32px;
+	background-position: right;
+	background-repeat: no-repeat;
+}
+
+body .icon_time_bold,
+body .icon_refresh_bold,
+body .icon_loop,
+body .icon_remove,
+.sidebar-hide,
+body .icon_like,
+.player-controls__btn .icon.icon_like,
+body .icon_add-to,
+.page-playlist__controls__addons .button.button_checked .icon.icon_share.icon_size_L,
+body .icon_share,
+.player-controls__btn_share .icon, .player-controls__btn_share.button .icon, .player-controls__btn_share.button_disabled .icon, .player-controls__btn_share.button.button_disabled .icon, .player-controls__btn_share.button_disabled:hover .icon, .player-controls__btn_share.button.button_disabled:hover .icon,
+body .icon_cancel,
+body .icon_ban,
+.icon_fwd, .icon_back,
+.link_arrow:after,
+body .icon_dropdown,
+.action-group__item .select .button-arrow .icon_dropdown,
+body .icon_prev,
+.player-controls__btn_play .icon,
+.player-controls__btn_pause .icon,
+body .icon_next,
+body .icon_seq,
+.player-controls__btn_add .icon,
+.hq .icon.icon_hq,
+body .icon_repeat,
+body .icon_shuffle,
+.page-users__shuffle-button .icon_shuffle,
+body .icon_update,
+.volume__icon,
+.equalizer .icon_equalizer,
+body .icon_tip,
+.select__item:hover .icon_tip,
+body .icon_trashcan,
+body .icon_trash,
+body .icon_asc,
+body .icon_settings,
+body .icon_dots,
+.icon_public,
+.icon_lock, .icon-theme-white .d-icon_dropdown, .local-icon-theme-white.d-icon_dropdown, .local-icon-theme-white .d-icon_dropdown, .icon-theme-white .d-icon_arrows-round, .local-icon-theme-white.d-icon_arrows-round, .local-icon-theme-white .d-icon_arrows-round, .icon-theme-white .d-icon_heart, .local-icon-theme-white.d-icon_heart, .local-icon-theme-white .d-icon_heart, .icon-theme-white .d-icon_share, .local-icon-theme-white.d-icon_share, .local-icon-theme-white .d-icon_share, .icon-theme-white .d-icon_plus-big, .local-icon-theme-white.d-icon_plus-big, .local-icon-theme-white .d-icon_plus-big, .d-equalizer .icon_d-equalizer, .icon-theme-white .d-icon_dots-horisontal, body .local-icon-theme-white .d-icon_dots-horisontal, body .local-icon-theme-white.d-icon_dots-horisontal, .icon-theme-white .d-icon_trash-wide, body .local-icon-theme-white .d-icon_trash-wide, body .local-icon-theme-white.d-icon_trash-wide, .icon-theme-white .d-icon_playlist-next, body .local-icon-theme-white .d-icon_playlist-next, body .local-icon-theme-white.d-icon_playlist-next, .icon-theme-white .d-icon_shuffle, body .local-icon-theme-white .d-icon_shuffle, body .local-icon-theme-white.d-icon_shuffle, .icon-theme-white .d-icon_settings, body .local-icon-theme-white .d-icon_settings, body .local-icon-theme-white.d-icon_settings, .icon-theme-white .d-icon_equalizer, body .local-icon-theme-white .d-icon_equalizer, body .local-icon-theme-white.d-icon_equalizer, .icon-theme-white .d-icon_loupe, body .local-icon-theme-white .d-icon_loupe, body .local-icon-theme-white.d-icon_loupe, .icon-theme-white .d-icon_radio, body .local-icon-theme-white .d-icon_radio, body .local-icon-theme-white.d-icon_radio, .body_show-pause.icon-theme-white .player-controls__btn_play .d-icon_play, .body_show-pause .player-controls__btn_play .local-icon-theme-white.d-icon_play, .body_show-pause .player-controls__btn_play .local-icon-theme-white .d-icon_play, .body_show-pause .local-icon-theme-white .player-controls__btn_play .d-icon_play, .icon-theme-white .d-icon_track-next, body .local-icon-theme-white .d-icon_track-next, body .local-icon-theme-white.d-icon_track-next, .icon-theme-white .d-icon_track-prev, body .local-icon-theme-white .d-icon_track-prev, body .local-icon-theme-white.d-icon_track-prev, .icon-theme-white .d-icon_circle-crossed, body .local-icon-theme-white .d-icon_circle-crossed, body .local-icon-theme-white.d-icon_circle-crossed, .icon-theme-white .d-icon_hq, body .local-icon-theme-white .d-icon_hq, body .local-icon-theme-white.d-icon_hq, .icon-theme-white .d-icon_repeat, body .local-icon-theme-white .d-icon_repeat, body .local-icon-theme-white.d-icon_repeat, .icon-theme-white .d-icon_cross-medium, body .local-icon-theme-white .d-icon_cross-medium, body .local-icon-theme-white.d-icon_cross-medium, .icon-theme-white .d-icon_cross-small, body .local-icon-theme-white .d-icon_cross-small, body .local-icon-theme-white.d-icon_cross-small, .icon-theme-white .d-icon_chainlink, body .local-icon-theme-white .d-icon_chainlink, body .local-icon-theme-white.d-icon_chainlink, .icon-theme-white .d-icon_tag, body .local-icon-theme-white .d-icon_tag, body .local-icon-theme-white.d-icon_tag {
+	filter: invert(1);
+}
+
+span.d-logo.d-logo__ru {
+	filter: invert(1) hue-rotate(180deg);
+}
+
+.mix__pic {
+	filter: brightness(85%);
+}
+
+body .icon_like {
+	background-position: -1px 0;
+}
+
+.head__user-button.current .icon.icon_like, body .share_hover.button .icon_share {
+	filter: invert(1) saturate(0);
+}
+
+.head__user-button:hover .icon.icon_like,
+.button2 .icon_like,
+.button2 .icon_shuffle,
+.button2 .icon_ban,
+body .share_hover.button .icon_share,
+.page-genre__shim .button_transparent .icon_like,
+.page-genre__shim .button_transparent .icon_share, .theme-white .deco-popup-menu__item:hover .d-icon.deco-icon, .icon-theme-white .d-hover__actions .d-icon_share, .icon-theme-white .d-hover__actions .d-icon_heart {
+	filter: none;
+}
+
+.nav__popup-item:hover .icon_tip {
+	filter: none;
+	background-image: url(https://music.yandex.ru/i/BS4MsWZeUF8EyjbM8TiE1sPDm9Y.svg);
+}
+
+.event__playlist .add-to .icon_add-to {
+	margin: 7.5px 8px 8px 7.2px !important;
+}
+
+.d-hover .icon.icon_like_white.icon_size_L {
+	margin: 4px 0 0 0;
+}
+
+.track_type_full .add-to .icon_add-to {
+	margin: 2.3px 0 0 1px !important;
+}
+
+.button_transparent .add-to .icon_add-to {
+	margin: 8.4px 8px 8px 8px !important;
+}
+
+.page-playlist__controls__addons .button:focus .icon.icon_share.icon_size_L,
+.page-playlist__controls__addons .button:active .icon.icon_share.icon_size_L {
+	margin: 8px 6px 6px 7.4px;
+}
+
+.page-playlist__controls__addons .share.button .icon {
+	margin: 6.9px 7px 8px 6.5px;
+}
+
+.track_type_full .icon.icon_trashcan {
+	margin: 1.8px 0 0 0 !important;
+}
+
+body .icon_share {
+	background-position: -1px -1px;
+}
+
+a.button.button_round.button_transparent.share.not-handled.button_ico:focus .icon_share {
+	background-position: 0 -1px;
+}
+
+.page-playlist__controls__addons .icon_share {
+	background-position: 0 -1px;
+}
+
+.action-group__item .button .icon_trash, .action-group__item .select .icon_trash {
+	background-position: 1px -2px;
+}
+/* BORDERS */
+.page-playlist__controls__addons .share.button_round:hover {
+	box-shadow: none;
+}
+
+.head__wrap,
+.day__head {
+	box-shadow: inset 0 -1px 0 0 var(--color_bg4);
+}
+
+.sidebar {
+	box-shadow: inset 1px 0 0 0 var(--color_bg4);
+}
+
+.popup-sequence__header,
+.tabs {
+	box-shadow: inset 0 -1px 0 0 var(--color_bg6);
+}
+
+.page-album__controls .button {
+	box-shadow: inset 0 0 0 1px var(--color_bg6);
+}
+
+.d-context-menu__item_main:hover .d-icon_arrow-left {
+	border-color: var(--color_bg1) !important;
+}
+
+.event__tracks,
+.artist__content,
+.head__suggest-input, .head__suggest-input:focus, .nb-is-focused .head__suggest-input,
+.concert,
+.button:focus,
+.album_selectable.album,
+.button,
+.action-group__content, .d-input_transparent .d-input__field, .theme-white .deco-link-pill, body .local-theme-white.deco-link-pill, body .local-theme-white .deco-link-pill, .theme-white .deco-devider, body .local-theme-white.deco-devider, body .local-theme-white .deco-devider {
+	border: 1px solid var(--color_bg4) !important;
+	outline: none !important;
+}
+
+.head__subnav.nav__subnav .button.button_pin_right {
+	border-color: var(--color_bg7) transparent var(--color_bg7) var(--color_bg7) !important;
+	outline: none !important;
+}
+
+.button_ico.button:focus,
+.button2_hollow,
+.add-to_size-L .button {
+	border-color: transparent !important;
+}
+
+.nav__tab_current,
+.tabs__tab_current {
+	border-bottom-color: var(--color_fg4) !important;
+}
+
+.nav__subnav {
+	border-bottom-color: var(--color_bg6) !important;
+}
+
+._nb-toggler-view, ._nb-toggler-view:hover {
+	border: 1px solid var(--color_bg8);
+}
+
+.tooltip_theme_light .tooltip__tail-elem,
+.sidebar-cont,
+.day__head,
+.footer,
+.playlist_selectable.playlist,
+.app-sms__content,
+.page-playlist__title_edit:hover,
+.promo-slider_rounded .promo-slider__button, .promo-slider_rounded .promo-slider__button:hover {
+	border-color: var(--color_bg4) !important;
+}
+
+.page-feed__more,
+.page-feed__more:hover,
+.page-genre__more,
+.page-genre__more:hover,
+.page-artist__more:hover,
+.page-artist__more,
+.page-playlist__recommends, .theme-white .deco-border, .local-theme-white.deco-border, .local-theme-white .deco-border, .theme-white .deco-button.active .deco-button-stylable, body .local-theme-white.deco-button.active .deco-button-stylable, body .local-theme-white .deco-button.active .deco-button-stylable, .theme-white .deco-button-action.active .deco-button-stylable, body .local-theme-white.deco-button-action.active .deco-button-stylable, body .local-theme-white .deco-button-action.active .deco-button-stylable, .theme-white .deco-button-caution.active .deco-button-stylable, body .local-theme-white.deco-button-caution.active .deco-button-stylable, body .local-theme-white .deco-button-caution.active .deco-button-stylable, .theme-white .deco-button-selector.active .deco-button-stylable, body .local-theme-white.deco-button-selector.active .deco-button-stylable, body .local-theme-white .deco-button-selector.active .deco-button-stylable, .theme-white .deco-popup-menu__item-group, body .local-theme-white.deco-popup-menu__item-group, body .local-theme-white .deco-popup-menu__item-group, .theme-white .deco-input_suggest, body .local-theme-white.deco-input_suggest, body .local-theme-white .deco-input_suggest {
+	border-color: var(--color_bg5) !important;
+}
+
+.theme-white .deco-popup-suggest-menu, body .local-theme-white.deco-popup-suggest-menu, body .local-theme-white .deco-popup-suggest-menu {
+	border-color: var(--color_bg5) !important;
+}
+
+.add-to-popup__foot input {
+	border: 1px solid var(--color_bg7) !important;
+}
+
+.volume_equalizer .volume__bar,
+.volume__control,
+.popup-sequence .button,
+.button,
+.footer__social-link,
+.teaser__content,
+.links__link,
+.add-to-popup__head,
+.add-to-popup__foot, .theme-white .deco-toggler-border, .local-theme-white.deco-toggler-border, .local-theme-white .deco-toggler-border, .theme-white .deco-input_suggest:focus, body .local-theme-white.deco-input_suggest:focus, body .local-theme-white .deco-input_suggest:focus, .theme-white .deco-input_suggest.focus, body .local-theme-white.deco-input_suggest.focus, body .local-theme-white .deco-input_suggest.focus, .theme-white .deco-input-wrapper_suggest:hover .deco-input_suggest, body .local-theme-white.deco-input-wrapper_suggest:hover .deco-input_suggest, body .local-theme-white .deco-input-wrapper_suggest:hover .deco-input_suggest {
+	border-color: var(--color_bg7) !important;
+}
+
+	.button-arrow.theme1,
+	.button-arrow.theme1:hover,
+	.popup,
+	.button:hover,
+	.share__tail, .theme-white .deco-button .deco-button-stylable, .local-theme-white.deco-button .deco-button-stylable, .local-theme-white .deco-button .deco-button-stylable, .theme-white .deco-button-action .deco-button-stylable, .local-theme-white.deco-button-action .deco-button-stylable, .local-theme-white .deco-button-action .deco-button-stylable, .theme-white .deco-button-caution .deco-button-stylable, .local-theme-white.deco-button-caution .deco-button-stylable, .local-theme-white .deco-button-caution .deco-button-stylable, .theme-white .deco-button-selector .deco-button-stylable, .local-theme-white.deco-button-selector .deco-button-stylable, .local-theme-white .deco-button-selector .deco-button-stylable, .theme-white .deco-button-simple, .local-theme-white.deco-button-simple, .local-theme-white .deco-button-simple, .theme-white .deco-button:hover .deco-button-stylable, .local-theme-white.deco-button:hover .deco-button-stylable, .local-theme-white .deco-button:hover .deco-button-stylable, .theme-white .deco-button-action:hover .deco-button-stylable, .local-theme-white.deco-button-action:hover .deco-button-stylable, .local-theme-white .deco-button-action:hover .deco-button-stylable, .theme-white .deco-button-caution:hover .deco-button-stylable, .local-theme-white.deco-button-caution:hover .deco-button-stylable, .local-theme-white .deco-button-caution:hover .deco-button-stylable, .theme-white .deco-button-selector:hover .deco-button-stylable, .local-theme-white.deco-button-selector:hover .deco-button-stylable, .local-theme-white .deco-button-selector:hover .deco-button-stylable, .theme-white .deco-button.hover .deco-button-stylable, .local-theme-white.deco-button.hover .deco-button-stylable, .local-theme-white .deco-button.hover .deco-button-stylable, .theme-white .deco-button-action.hover .deco-button-stylable, .local-theme-white.deco-button-action.hover .deco-button-stylable, .local-theme-white .deco-button-action.hover .deco-button-stylable, .theme-white .deco-button-caution.hover .deco-button-stylable, .local-theme-white.deco-button-caution.hover .deco-button-stylable, .local-theme-white .deco-button-caution.hover .deco-button-stylable, .theme-white .deco-button-selector.hover .deco-button-stylable, .local-theme-white.deco-button-selector.hover .deco-button-stylable, .local-theme-white .deco-button-selector.hover .deco-button-stylable, .theme-white .deco-button:hover .deco-button-simple, .local-theme-white.deco-button:hover .deco-button-simple, .local-theme-white .deco-button:hover .deco-button-simple, .theme-white .deco-button-action:hover .deco-button-simple, .local-theme-white.deco-button-action:hover .deco-button-simple, .local-theme-white .deco-button-action:hover .deco-button-simple, .theme-white .deco-button-caution:hover .deco-button-simple, .local-theme-white.deco-button-caution:hover .deco-button-simple, .local-theme-white .deco-button-caution:hover .deco-button-simple, .theme-white .deco-button-selector:hover .deco-button-simple, .local-theme-white.deco-button-selector:hover .deco-button-simple, .local-theme-white .deco-button-selector:hover .deco-button-simple, .theme-white .deco-button.hover .deco-button-simple, .local-theme-white.deco-button.hover .deco-button-simple, .local-theme-white .deco-button.hover .deco-button-simple, .theme-white .deco-button-action.hover .deco-button-simple, .local-theme-white.deco-button-action.hover .deco-button-simple, .local-theme-white .deco-button-action.hover .deco-button-simple, .theme-white .deco-button-caution.hover .deco-button-simple, .local-theme-white.deco-button-caution.hover .deco-button-simple, .local-theme-white .deco-button-caution.hover .deco-button-simple, .theme-white .deco-button-selector.hover .deco-button-simple, .local-theme-white.deco-button-selector.hover .deco-button-simple, .local-theme-white .deco-button-selector.hover .deco-button-simple {
+		border-color: var(--color_bg8) !important;
+	}
+
+.button_ico.button:focus,
+.button_round,
+.button_round:hover {
+	border: 1px solid transparent !important;
+}
+
+.promo__controls .button {
+	border-color: transparent !important;
+}
+
+.volume_bottom .volume__control:before,
+.volume_bottom .volume__control:after {
+	border-color: var(--color_bg5) transparent transparent transparent !important;
+}
+
+.event__tracks,
+.artist__content,
+.concert,
+.track_selectable.track:hover:before, .track_selectable.track_hover:before, .track_selectable.track_selected:before,
+.artist__content:hover, .artist__content_hover, .artist__content_selected, .track_selectable.track:hover, .track_selectable.track_hover, .track_selectable.track_selected, .concert_selectable.concert:hover, .concert_selectable.concert_hover, .concert_selectable.concert_selected,
+.track_selectable.track:hover:before, .track_selectable.track_hover:before, .track_selectable.track_selected:before, .artist__content:hover:before, .artist__content_hover:before, .artist__content_selected:before, .artist_hover .artist__content:before, .artist_selected .artist__content:before, .concert_selectable.concert:hover:before, .concert_selectable.concert_hover:before, .concert_selectable.concert_selected:before,
+.album_selectable.album:hover:before, .album_selectable.album_hover:before, .album_selectable.album_selected:before,
+.album_selectable.album,
+.promo,
+.playlist_selectable.playlist,
+.playlist_selectable.playlist:hover:before, .playlist_selectable.playlist_hover:before, .playlist_selectable.playlist_selected:before,
+.add-to-popup.popup,
+.popup {
+	border-radius: 6px;
 }

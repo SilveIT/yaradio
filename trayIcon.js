@@ -141,4 +141,4 @@ exports.setTrayTooltip = (tooltip) => {
 
 exports.setTrayIcon = (path) => {
 	appIcon.setImage(path);
-}
+};
