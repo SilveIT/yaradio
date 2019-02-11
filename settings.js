@@ -106,7 +106,7 @@ module.exports = new ElectronPreferences({
 								]
 							},
 							{
-								'key': "csspath",
+								'key': "customThemePath",
 								'type': "directory",
 								'help': "The location where your css files are stored."
 							}
