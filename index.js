@@ -121,12 +121,15 @@ function loadCustomTheme(page) {
 	if (!directoryExists(dirPath)) return false; //Directory is not valid
 	const dir = fs.readdirSync(dirPath); //I think I'll use sync methods in css loading..
 	if (dir.length === 0)
-		return false; //There's no css files
+		return false;
+	let found = false;
 	for (const filePath of dir) {
-		if (filePath.endsWith(".css"))
+		if (filePath.endsWith(".css")) {
 			page.insertCSS(fs.readFileSync(path.join(dirPath, filePath), "utf8"));
+			found = true;
+		}
 	}
-	return true;
+	return found;
 }
 
 function getCurrentTheme() {
@@ -273,7 +276,8 @@ app.on("ready", () => {
 				page.insertCSS(fs.readFileSync(path.join(__dirname, "browserDark.css"), "utf8"));
 				break;
 			case "custom":
-				loadCustomTheme(page);
+				if (!loadCustomTheme(page))
+					page.insertCSS(fs.readFileSync(path.join(__dirname, "browserWhite.css"), "utf8"));
 				break;
 			default: page.insertCSS(fs.readFileSync(path.join(__dirname, "browserWhite.css"), "utf8"));
 		}
