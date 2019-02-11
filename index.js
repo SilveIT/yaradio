@@ -105,7 +105,7 @@ function createMainWindow() {
 }
 
 function updateNotifyConfig() { //It doesn't help..
-	const enableDark = settings.value("window.theme").indexOf("true") !== -1;
+	//const enableDark = settings.value("window.theme").indexOf("true") !== -1;
 	const whiteCfg = {
 		//appIcon: path.join(__dirname, "static/icon.png"),
 		displayTime: 4000,
@@ -117,21 +117,21 @@ function updateNotifyConfig() { //It doesn't help..
 			fontFamily: "Arial",
 			fontSize: 12,
 			position: "relative",
-			lineHeight: "15px",
+			lineHeight: "15px"
 		},
 		defaultStyleAppIcon: {
 			overflow: "hidden",
 			float: "left",
 			height: 40,
 			width: 40,
-			marginRight: 10,
+			marginRight: 10
 		},
 		defaultStyleImage: {
 			overflow: "hidden",
 			float: "right",
 			height: 40,
 			width: 40,
-			marginLeft: 10,
+			marginLeft: 10
 		},
 		defaultStyleClose: {
 			position: "absolute",
@@ -146,49 +146,49 @@ function updateNotifyConfig() { //It doesn't help..
 			cursor: "default"
 		}
 	};
-	const darkCfg = {
-		//appIcon: path.join(__dirname, "static/icon.png"),
-		displayTime: 4000,
-		defaultStyleContainer: {
-			backgroundColor: "#f0f0f0",
-			overflow: "hidden",
-			padding: 8,
-			border: "1px solid #CCC",
-			fontFamily: "Arial",
-			fontSize: 12,
-			position: "relative",
-			lineHeight: "15px",
-			filter: "invert(1)"
-		},
-		defaultStyleAppIcon: {
-			overflow: "hidden",
-			float: "left",
-			height: 40,
-			width: 40,
-			marginRight: 10,
-			filter: "invert(1)"
-		},
-		defaultStyleImage: {
-			overflow: "hidden",
-			float: "right",
-			height: 40,
-			width: 40,
-			marginLeft: 10,
-			filter: "invert(1)"
-		},
-		defaultStyleClose: {
-			position: "absolute",
-			top: 1,
-			right: 3,
-			fontSize: 11,
-			color: "#CCC"
-		},
-		defaultStyleText: {
-			margin: 0,
-			overflow: "hidden",
-			cursor: "default"
-		}
-	};
+	//const darkCfg = {
+	//	//appIcon: path.join(__dirname, "static/icon.png"),
+	//	displayTime: 4000,
+	//	defaultStyleContainer: {
+	//		backgroundColor: "#f0f0f0",
+	//		overflow: "hidden",
+	//		padding: 8,
+	//		border: "1px solid #CCC",
+	//		fontFamily: "Arial",
+	//		fontSize: 12,
+	//		position: "relative",
+	//		lineHeight: "15px",
+	//		filter: "invert(1)"
+	//	},
+	//	defaultStyleAppIcon: {
+	//		overflow: "hidden",
+	//		float: "left",
+	//		height: 40,
+	//		width: 40,
+	//		marginRight: 10,
+	//		filter: "invert(1)"
+	//	},
+	//	defaultStyleImage: {
+	//		overflow: "hidden",
+	//		float: "right",
+	//		height: 40,
+	//		width: 40,
+	//		marginLeft: 10,
+	//		filter: "invert(1)"
+	//	},
+	//	defaultStyleClose: {
+	//		position: "absolute",
+	//		top: 1,
+	//		right: 3,
+	//		fontSize: 11,
+	//		color: "#CCC"
+	//	},
+	//	defaultStyleText: {
+	//		margin: 0,
+	//		overflow: "hidden",
+	//		cursor: "default"
+	//	}
+	//};
 	eNotify.setConfig(whiteCfg);
 }
 
@@ -377,7 +377,7 @@ ipc.on("showAbout",
 		electron.dialog.showMessageBox({
 			title: `About ${appName}`,
 			message: `${appName} ${app.getVersion()}`,
-			detail: "Created by Maxim Ponomarev, modificated by Silve",
+			detail: "Made with ❤ by Silve",
 			icon: path.join(__dirname, "static/Icon.png")
 		});
 	});

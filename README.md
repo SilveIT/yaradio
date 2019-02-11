@@ -1,10 +1,13 @@
 # YaRadio <img src="static/Icon.png" width="48">
 
-Unofficial Desktop app for [Yandex.Radio](https://radio.yandex.ru/) with global media hotkeys support.
+Unofficial Desktop app for [Yandex.Radio](https://radio.yandex.ru/) with keyboard shortcuts, notifications, ad blocking and themes.
 ![light](media/screen_light.png)
 ![dark](media/screen_dark.png)
 ### Install
 *Mac OS 10.9+, Windows 7+ and Linux are supported.*
+
+**Mac OS and Linux versions have never attempted to build. The application may look weird. Feel free to create issue/pull request.**
+
 #### Mac OS
 Build and move `YaRadio.app` to the `/Applications` directory.
 #### Linux
@@ -32,4 +35,6 @@ Built with [Electron](http://electron.atom.io).
 - Build Windows: `$ npm run build:windows` (for *macOS* wine is required `$ brew install wine`)
 - Build all: `$ npm run build`
 # License
-MIT © [Maxim Ponomarev](https://github.com/maxvipon/) & Silve
+MIT © [Silve](https://git.teiko.studio/SilverIce)
+
+Special thanks to [Maxim Ponomarev](https://github.com/maxvipon/) for making first version of this app.
