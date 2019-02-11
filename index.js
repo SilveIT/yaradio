@@ -14,7 +14,7 @@ let binds = settings.value("keyboard"); //Keyboard settings
 let win; //Browser window
 let quitting = false; //Is application quitting right now
 let eNotify = null; //Notifications core
-let prevTheme = settings.value("window.theme").indexOf("true") !== -1;
+let curTheme = getCurrentTheme();
 
 require("electron-context-menu")({
 	prepend: (_, window) => [
@@ -102,6 +102,46 @@ function createMainWindow() {
 	});
 
 	return brWin;
+}
+
+function directoryExists(directory) {
+	if (!directory)
+		return false;
+	if (typeof directory !== "string")
+		throw new TypeError("directory-exists expects a non-empty string as its first argument");
+	try {
+		return fs.statSync(path.resolve(directory)).isDirectory();
+	} catch (e) {
+		return false;
+	}
+}
+
+function loadCustomTheme(page) {
+	const dirPath = settings.value("window.customThemePath");
+	if (!directoryExists(dirPath)) return false; //Directory is not valid
+	const dir = fs.readdirSync(dirPath); //I think I'll use sync methods in css loading..
+	if (dir.length === 0)
+		return false; //There's no css files
+	for (const filePath of dir) {
+		if (filePath.endsWith(".css"))
+			page.insertCSS(fs.readFileSync(path.join(dirPath, filePath), "utf8"));
+	}
+	return true;
+}
+
+function getCurrentTheme() {
+	const useCustom = settings.value("window.useCustom").indexOf("true") !== -1;
+	if (useCustom)
+		return "custom";
+	return settings.value("window.theme").indexOf("true") !== -1 ? "dark" : "white";
+}
+
+function updateTheme() {
+	const theme = getCurrentTheme();
+	if (theme !== curTheme) {
+		curTheme = theme;
+		win.reload();
+	}
 }
 
 function updateNotifyConfig() { //It doesn't help..
@@ -225,8 +265,18 @@ app.on("ready", () => {
 	const argv = require("minimist")(process.argv.slice(1));
 
 	page.on("dom-ready", () => {
-		const enableDark = settings.value("window.theme").indexOf("true") !== -1;
-		page.insertCSS(fs.readFileSync(path.join(__dirname, enableDark ? "browserDark.css" : "browserWhite.css"), "utf8"));
+		switch (curTheme) {
+			case "white":
+				page.insertCSS(fs.readFileSync(path.join(__dirname, "browserWhite.css"), "utf8"));
+				break;
+			case "dark":
+				page.insertCSS(fs.readFileSync(path.join(__dirname, "browserDark.css"), "utf8"));
+				break;
+			case "custom":
+				loadCustomTheme(page);
+				break;
+			default: page.insertCSS(fs.readFileSync(path.join(__dirname, "browserWhite.css"), "utf8"));
+		}
 		if (argv.minimize)
 			win.minimize();
 		else
@@ -284,11 +334,7 @@ app.on("before-quit",
 
 settings.on("save",
 	(preferences) => {
-		let theme = settings.value("window.theme").indexOf("true") !== -1;
-		if (theme !== prevTheme) {
-			prevTheme = theme;
-			win.reload();
-		}
+		updateTheme();
 		//Overgovnokod, I'm too lazy to think how to fix this.. Mb dropdown with key list + some chechboxes with super keys?..
 		if (binds.mute !== preferences.keyboard.mute) {
 			const toRemove = preferences.keyboard.mute === "";

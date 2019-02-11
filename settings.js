@@ -44,7 +44,9 @@ module.exports = new ElectronPreferences({
 			controlsBehavior: [
 				"trayOnMinimize"
 			],
-			theme: []
+			customThemePath: "",
+			theme: [],
+			useCustom: []
 		}
 	},
     /**
@@ -78,6 +80,10 @@ module.exports = new ElectronPreferences({
 									{ 'label': "Minimize to tray on window close", 'value': "trayOnClose" },
 									{ 'label': "Minimize to tray on window minimize", 'value': "trayOnMinimize" }
 								]
+							},
+							{
+								'content': " ",
+								'type': "message"
 							}
 						]
 					},
@@ -85,12 +91,24 @@ module.exports = new ElectronPreferences({
 						'label': "Appearance",
 						'fields': [
 							{
-								'label': "Choose window controls behavior:",
 								'key': "theme",
 								'type': "checkbox",
 								'options': [
 									{ 'label': "Enable dark theme", 'value': "true" }
 								]
+							},
+							{
+								'label': "You can also choose your own theme",
+								'key': "useCustom",
+								'type': "checkbox",
+								'options': [
+									{ 'label': "Enable custom theme", 'value': "true" }
+								]
+							},
+							{
+								'key': "csspath",
+								'type': "directory",
+								'help': "The location where your css files are stored."
 							}
 						]
 					}
