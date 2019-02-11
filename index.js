@@ -10,6 +10,9 @@ const ipc = electron.ipcMain;
 const os = require("os");
 const shell = electron.shell;
 
+//Check integrity of settings file
+settings.verifySettings();
+
 let binds = settings.value("keyboard"); //Keyboard settings
 let win; //Browser window
 let quitting = false; //Is application quitting right now
@@ -236,9 +239,6 @@ function updateNotifyConfig() { //It doesn't help..
 }
 
 app.on("ready", () => {
-	//Check integrity of settings file
-	settings.verifySettings();
-
 	//Removing default application menu
 	electron.Menu.setApplicationMenu(null);
 
