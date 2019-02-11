@@ -191,3 +191,40 @@ module.exports = new ElectronPreferences({
 		}
 	]
 });
+
+function isObject(val) {
+	return !Array.isArray(val) && (typeof val === "object" || typeof val === "function");
+}
+
+function mergeProperties(objSource, objTarget) {
+	const keys = Object.keys(objSource);
+	for (let i = 0; i < keys.length; i++) {
+		const key = keys[i];
+		if (Object.prototype.hasOwnProperty.call(objSource, key)) {
+			if (Object.prototype.hasOwnProperty.call(objTarget, key)) {
+				const subObj1 = objSource[key];
+				const subObj2 = objTarget[key];
+				const isObj1 = isObject(subObj1);
+				const isObj2 = isObject(subObj2);
+
+				if (isObj1 && isObj2)
+					mergeProperties(subObj1, subObj2);
+				else if (isObj1) {
+					console.log(`[Settings] Found mismatch with property type on ${key}, overwriting`);
+					objTarget[key] = objSource[key];
+				}
+			}
+			else {
+				console.log(`[Settings] Copying ${key} from defaults`);
+				Object.defineProperty(objTarget, key, Object.getOwnPropertyDescriptor(objSource, key));
+				objTarget[key] = objSource[key];
+			}
+		}
+	}
+	return objTarget;
+}
+
+module.exports.verifySettings = function () {
+	module.exports.preferences = mergeProperties(module.exports.defaults, module.exports._preferences);
+	module.exports.save();
+}

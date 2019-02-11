@@ -236,6 +236,9 @@ function updateNotifyConfig() { //It doesn't help..
 }
 
 app.on("ready", () => {
+	//Check integrity of settings file
+	settings.verifySettings();
+
 	//Removing default application menu
 	electron.Menu.setApplicationMenu(null);
 
