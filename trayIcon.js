@@ -2,7 +2,7 @@
 const path = require("path");
 const electron = require("electron");
 const settings = require("./settings");
-const iconPath = path.join(__dirname, "static/Icon.png");
+const iconPath = path.join(__dirname, "static/Icon_pause.png");
 
 let ctxMenu = null;
 let appIcon = null;

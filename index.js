@@ -461,8 +461,8 @@ ipc.on("trackChanged",
 	});
 
 ipc.on("stateChanged",
-	(state) => { //TODO: make better icons, those are too small
-		tray.setTrayIcon(state ? path.join(__dirname, "static/Icon_playing.png") : path.join(__dirname, "static/Icon_pause.png"));
+	(_, state) => { //TODO: make better icons, those are too small
+		tray.setTrayIcon(state ? path.join(__dirname, "static/Icon_small.png") : path.join(__dirname, "static/Icon_pause.png"));
 	});
 
 exports.getBrowserWindow = () => win;
