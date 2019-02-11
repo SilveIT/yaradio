@@ -38,7 +38,9 @@ module.exports = new ElectronPreferences({
 			like: "Super+PageUp",
 			mute: "",
 			next: "MediaNextTrack",
-			play: "MediaPlayPause"
+			play: "MediaPlayPause",
+			increaseVolume: "",
+			decreaseVolume: ""
 		},
 		window: {
 			controlsBehavior: [
@@ -182,6 +184,16 @@ module.exports = new ElectronPreferences({
 							{
 								'label': "Mute",
 								'key': "mute",
+								'type': "text"
+							},
+							{
+								'label': "Increase volume",
+								'key': "increaseVolume",
+								'type': "text"
+							},
+							{
+								'label': "Decrease volume",
+								'key': "decreaseVolume",
 								'type': "text"
 							}
 						]

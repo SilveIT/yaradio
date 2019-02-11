@@ -408,6 +408,32 @@ settings.on("save",
 						electron.globalShortcut.register(binds.dislike, () => win.send("dislike"));
 				}
 		}
+		if (binds.increaseVolume !== preferences.keyboard.increaseVolume) {
+			const toRemove = preferences.keyboard.increaseVolume === "";
+			if (binds.increaseVolume !== "" || toRemove)
+				electron.globalShortcut.unregister(binds.increaseVolume);
+			if (!toRemove)
+				try {
+					electron.globalShortcut.register(preferences.keyboard.increaseVolume, () => win.send("increaseVolume"));
+				} catch (e) {
+					settings.value("keyboard.increaseVolume", binds.increaseVolume);
+					if (binds.increaseVolume !== "")
+						electron.globalShortcut.register(binds.increaseVolume, () => win.send("increaseVolume"));
+				}
+		}
+		if (binds.decreaseVolume !== preferences.keyboard.decreaseVolume) {
+			const toRemove = preferences.keyboard.decreaseVolume === "";
+			if (binds.decreaseVolume !== "" || toRemove)
+				electron.globalShortcut.unregister(binds.decreaseVolume);
+			if (!toRemove)
+				try {
+					electron.globalShortcut.register(preferences.keyboard.decreaseVolume, () => win.send("decreaseVolume"));
+				} catch (e) {
+					settings.value("keyboard.decreaseVolume", binds.decreaseVolume);
+					if (binds.decreaseVolume !== "")
+						electron.globalShortcut.register(binds.decreaseVolume, () => win.send("decreaseVolume"));
+				}
+		}
 		binds = settings.value("keyboard");
 	});
 

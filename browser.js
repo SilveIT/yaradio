@@ -86,6 +86,12 @@ exports.mute = () =>
 exports.toggleHQ = () =>
 	exec("Mu.pages.adapter.toggleHQ()");
 
+exports.increaseVolume = () =>
+	exec("Mu.pages.adapter.setVolume(Mu.pages.adapter.getVolume() + 0.05)");
+
+exports.decreaseVolume = () =>
+	exec("Mu.pages.adapter.setVolume(Mu.pages.adapter.getVolume() - 0.05)");
+
 ipc.on("preferences", () => exports.preferences());
 ipc.on("logout", () => exports.logout());
 ipc.on("play", () => exports.play());
@@ -94,3 +100,5 @@ ipc.on("like", () => exports.like());
 ipc.on("dislike", () => exports.dislike());
 ipc.on("mute", () => exports.mute());
 ipc.on("HQ", () => exports.toggleHQ());
+ipc.on("increaseVolume", () => exports.increaseVolume());
+ipc.on("decreaseVolume", () => exports.decreaseVolume());
