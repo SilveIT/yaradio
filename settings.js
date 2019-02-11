@@ -34,13 +34,13 @@ module.exports = new ElectronPreferences({
 			displayTime: 4000
 		},
 		keyboard: {
-			dislike: "Super+PageDown",
-			like: "Super+PageUp",
+			dislike: "Control+Shift+PageDown",
+			like: "Control+Shift+PageUp",
 			mute: "",
-			next: "MediaNextTrack",
-			play: "MediaPlayPause",
-			increaseVolume: "",
-			decreaseVolume: ""
+			next: "Control+Shift+Right",
+			play: "Control+Shift+Left",
+			increaseVolume: "Control+Shift+Up",
+			decreaseVolume: "Control+Shift+Down"
 		},
 		window: {
 			controlsBehavior: [
