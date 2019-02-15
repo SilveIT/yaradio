@@ -1,80 +1,84 @@
-"use strict";
-const path = require("path");
-const electron = require("electron");
-const settings = require("./settings");
-const iconPath = path.join(__dirname, "static/Icon_pause.png");
+'use strict';
+const {
+	join
+} = require('path');
+const {
+	Menu,
+	Tray,
+	clipboard
+} = require('electron');
+const settings = require('./settings.js');
+const iconPath = join(__dirname, 'static/Icon_pause.png');
 
 let ctxMenu = null;
 let appIcon = null;
-let curTooltip = "";
+let curTooltip = '';
 let clickHandlerTimeout = 0;
 
 function ctxTpl(win, app, showNotify) {
-	return [
-		{
-			label: "Play / pause",
-			click: () => win.send("play")
-		},
-		{
-			label: "Next Track",
-			click: () => win.send("next")
-		},
-		{
-			type: "separator"
-		},
-		{
-			label: "Mute",
-			click: () => win.send("mute")
-		},
-		{
-			type: "separator"
-		},
-		{
-			label: "Like",
-			click: () => win.send("like")
-		},
-		{
-			label: "Dislike",
-			click: () => win.send("dislike")
-		},
-		{
-			type: "separator"
-		},
-		{
-			label: "Show notifications",
-			type: "checkbox",
-			checked: showNotify,
-			click: () => changeShowNotify()
-		},
-		{
-			type: "separator"
-		},
-		{
-			label: "Settings",
-			click: () => settings.show()
-		},
-		{
-			type: "separator"
-		},
-		{
-			label: "Show App",
-			click: () => win.show()
-		},
-		{
-			label: "Quit",
-			click: () => app.quit()
-		}
-	];
+	return [{
+		label: 'Play / pause',
+		click: () => win.send('play')
+	},
+	{
+		label: 'Next Track',
+		click: () => win.send('next')
+	},
+	{
+		type: 'separator'
+	},
+	{
+		label: 'Mute',
+		click: () => win.send('mute')
+	},
+	{
+		type: 'separator'
+	},
+	{
+		label: 'Like',
+		click: () => win.send('like')
+	},
+	{
+		label: 'Dislike',
+		click: () => win.send('dislike')
+	},
+	{
+		type: 'separator'
+	},
+	{
+		label: 'Show notifications',
+		type: 'checkbox',
+		checked: showNotify,
+		click: () => changeShowNotify()
+	},
+	{
+		type: 'separator'
+	},
+	{
+		label: 'Settings',
+		click: () => settings.show()
+	},
+	{
+		type: 'separator'
+	},
+	{
+		label: 'Show App',
+		click: () => win.show()
+	},
+	{
+		label: 'Quit',
+		click: () => app.quit()
+	}];
 }
 
 function changeShowNotify() {
-	const enableNotifications = settings.value("notifications.enable").indexOf("true") !== -1;
-	settings.value("notifications.enable", !enableNotifications ? ["true"] : []);
+	const enableNotifications = settings.value('notifications.enable').indexOf('true') !== -1;
+	settings.value('notifications.enable', enableNotifications ? [] : ['true']);
 }
 
 function updateIconMenu(win, app) {
-	const enableNotifications = settings.value("notifications.enable").indexOf("true") !== -1;
-	ctxMenu = electron.Menu.buildFromTemplate(ctxTpl(win, app, enableNotifications));
+	const enableNotifications = settings.value('notifications.enable').indexOf('true') !== -1;
+	ctxMenu = Menu.buildFromTemplate(ctxTpl(win, app, enableNotifications));
 	appIcon.setContextMenu(ctxMenu);
 }
 
@@ -96,22 +100,21 @@ function getClickHandler(onClick, onDblClick, delay) {
 }
 
 exports.create = (win, app, eNotify) => {
-	appIcon = new electron.Tray(iconPath);
+	appIcon = new Tray(iconPath);
 	updateIconMenu(win, app);
 
-	const click = (e) => {
+	const click = e => {
 		e.preventDefault();
-		if (curTooltip === "") return;
-		electron.clipboard.writeText(curTooltip);
-		eNotify.notify(
-			{
-				title: "Copied to clipboard",
-				image: path.join(__dirname, "static/Icon.png"),
-				text: curTooltip,
-				displayTime: 1500
-			});
+		if (curTooltip === '') return;
+		clipboard.writeText(curTooltip);
+		eNotify.notify({
+			title: 'Copied to clipboard',
+			image: join(__dirname, 'static/Icon.png'),
+			text: curTooltip,
+			displayTime: 1500
+		});
 	};
-	const dblclick = (e) => {
+	const dblclick = e => {
 		e.preventDefault();
 		if (win.isVisible()) {
 			win.hide();
@@ -122,24 +125,24 @@ exports.create = (win, app, eNotify) => {
 
 	var clickHandler = getClickHandler(click, dblclick, 500);
 
-	appIcon.addListener("click", clickHandler);
-	appIcon.addListener("double-click", clickHandler);
+	appIcon.addListener('click', clickHandler);
+	appIcon.addListener('double-click', clickHandler);
 
-	settings.on("save", () => {
+	settings.on('save', () => {
 		//I'll update menu anyway, don't want to check every setting separately
 		updateIconMenu(win, app);
 	});
 
-	win.on("show", function () {
-		appIcon.setHighlightMode("always");
+	win.on('show', function () {
+		appIcon.setHighlightMode('always');
 	});
 };
 
-exports.setTrayTooltip = (tooltip) => {
+exports.setTrayTooltip = tooltip => {
 	appIcon.setToolTip(tooltip);
 	curTooltip = tooltip;
 };
 
-exports.setTrayIcon = (path) => {
+exports.setTrayIcon = path => {
 	appIcon.setImage(path);
 };

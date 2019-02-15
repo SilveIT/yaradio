@@ -1,8 +1,19 @@
 {
-  "extends": ["xo"],
-  "esnext": true,
-  "env": {
-    "node": true,
-    "browser": true
-  }
+    "extends": [
+        "xo"
+    ],
+    "env": {
+        "node": true,
+        "browser": true
+    },
+    "rules": {
+        "curly": 0,
+        "capitalized-comments": 0,
+        "padding-line-between-statements": 0,
+        "spaced-comment": 0,
+        "complexity": 0,
+        "valid-jsdoc": 0,
+        "max-statements-per-line": 0,
+        "no-warning-comments": 0
+    }
 }
