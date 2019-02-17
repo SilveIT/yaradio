@@ -284,6 +284,10 @@ app.on('ready', () => {
 		globalShortcut.register(binds.like, () => win.send('like'));
 	if (binds.dislike !== '')
 		globalShortcut.register(binds.dislike, () => win.send('dislike'));
+	if (binds.increaseVolume !== '')
+		globalShortcut.register(binds.increaseVolume, () => win.send('increaseVolume'));
+	if (binds.decreaseVolume !== '')
+		globalShortcut.register(binds.decreaseVolume, () => win.send('decreaseVolume'));
 
 	// #endregion Register global shortcuts
 

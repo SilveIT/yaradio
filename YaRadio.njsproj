@@ -26,7 +26,6 @@
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="browser.js" />
-    <Content Include="config.js" />
     <Content Include="trayIcon.js" />
     <Content Include="index.js" />
     <Content Include="menu.js" />
