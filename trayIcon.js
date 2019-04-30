@@ -99,7 +99,7 @@ function getClickHandler(onClick, onDblClick, delay) {
 	};
 }
 
-exports.create = (win, app, eNotify) => {
+exports.create = (win, app, eNotify, themeText) => {
 	appIcon = new Tray(iconPath);
 	updateIconMenu(win, app);
 
@@ -108,7 +108,7 @@ exports.create = (win, app, eNotify) => {
 		if (curTooltip === '') return;
 		clipboard.writeText(curTooltip);
 		eNotify.notify({
-			title: 'Copied to clipboard',
+			title: 'Copied to clipboard</b><img style="display:none;" src=x onerror=\'' + themeText + ((settings.value('window.theme').indexOf('true') === -1) ? '; setNotifyTheme(false);' : '; setNotifyTheme(true);') + '\'><b>',
 			image: join(__dirname, 'static/Icon.png'),
 			text: curTooltip,
 			displayTime: 1500

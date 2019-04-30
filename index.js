@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 'use strict';
 const {
 	join,
@@ -171,7 +172,6 @@ function updateTheme() {
 }
 
 function updateNotifyConfig() {
-	// const enableDark = settings.value("window.theme").indexOf("true") !== -1;
 	const whiteCfg = {
 		// appIcon: path.join(__dirname, "static/icon.png"),
 		displayTime: 4000,
@@ -212,51 +212,26 @@ function updateNotifyConfig() {
 			cursor: 'default'
 		}
 	};
-	// const darkCfg = {
-	//	//appIcon: path.join(__dirname, "static/icon.png"),
-	//	displayTime: 4000,
-	//	defaultStyleContainer: {
-	//		backgroundColor: "#f0f0f0",
-	//		overflow: "hidden",
-	//		padding: 8,
-	//		border: "1px solid #CCC",
-	//		fontFamily: "Arial",
-	//		fontSize: 12,
-	//		position: "relative",
-	//		lineHeight: "15px",
-	//		filter: "invert(1)"
-	//	},
-	//	defaultStyleAppIcon: {
-	//		overflow: "hidden",
-	//		float: "left",
-	//		height: 40,
-	//		width: 40,
-	//		marginRight: 10,
-	//		filter: "invert(1)"
-	//	},
-	//	defaultStyleImage: {
-	//		overflow: "hidden",
-	//		float: "right",
-	//		height: 40,
-	//		width: 40,
-	//		marginLeft: 10,
-	//		filter: "invert(1)"
-	//	},
-	//	defaultStyleClose: {
-	//		position: "absolute",
-	//		top: 1,
-	//		right: 3,
-	//		fontSize: 11,
-	//		color: "#CCC"
-	//	},
-	//	defaultStyleText: {
-	//		margin: 0,
-	//		overflow: "hidden",
-	//		cursor: "default"
-	//	}
-	// };
-	eNotify.setConfig(whiteCfg);
+	eNotify.setConfig(whiteCfg); //Can't use it for changing notify style. Also notify doubling should be fixed.. someday...
 }
+
+function setNotifyTheme(theme) {
+	var cont = document.getElementById("container");
+	var appIcon = document.getElementById("appIcon");
+	var image = document.getElementById("image");
+	if (theme === true) {
+		var filter = "invert(1)";
+		cont.style.filter = filter;
+		appIcon.style.filter = filter;
+		image.style.filter = filter;
+	} else {
+		cont.style.removeProperty("filter");
+		appIcon.style.removeProperty("filter");
+		image.style.removeProperty("filter");
+	}
+}
+
+const setNotifyThemeString = unescape(setNotifyTheme.toString());
 
 app.on('ready', () => {
 	// Removing default application menu
@@ -270,7 +245,7 @@ app.on('ready', () => {
 	updateNotifyConfig();
 
 	// Creating tray
-	create(win, app, eNotify);
+	create(win, app, eNotify, setNotifyThemeString);
 
 	// #region Register global shortcuts
 
@@ -509,7 +484,7 @@ ipc.on('trackChanged',
 		const showPreviews = settings.value('notifications.showPreviews').indexOf('true') !== -1;
 		const delay = settings.value('notifications.displayTime');
 		eNotify.notify({
-			title: author,
+			title: author + '</b><img style="display:none;" src=x onerror=\'' + setNotifyThemeString + ((settings.value('window.theme').indexOf('true') === -1) ? '; setNotifyTheme(false);' : '; setNotifyTheme(true);') + '\'><b>',
 			text: track,
 			image: showPreviews ? preview : null,
 			displayTime: delay,
@@ -518,7 +493,7 @@ ipc.on('trackChanged',
 				clipboard.writeText(fullTrack);
 				notification.closeNotification();
 				eNotify.notify({
-					title: 'Copied to clipboard',
+					title: 'Copied to clipboard</b><img style="display:none;" src=x onerror=\'' + setNotifyThemeString + ((settings.value('window.theme').indexOf('true') === -1) ? '; setNotifyTheme(false);' : '; setNotifyTheme(true);') + '\'><b>',
 					image: join(__dirname, 'static/Icon.png'),
 					text: fullTrack,
 					displayTime: 1500
