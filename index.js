@@ -292,7 +292,7 @@ app.on('ready', () => {
 	});
 
 	session.defaultSession.webRequest.onBeforeRequest(['*://*./*'], function (details, callback) {
-		const whitelist = /file:\/\/\/|chrome-devtools|avatars.yandex.net|yapic.yandex.ru|avatars.mds.yandex.net|.ttf|.woff|registration-validations|passport-frontend|storage.yandex.net|music.yandex.ru|radio.yandex.ru|jquery.min.js|jquery-ui.min.js|.css/gi;
+		const whitelist = /file:\/\/\/|chrome-devtools|avatars.yandex.net|yapic.yandex.ru|avatars.mds.yandex.net|.ttf|.woff|registration-validations|passport-frontend|storage.yandex.net|music.yandex.ru|radio.yandex.ru|jquery.min.js|jquery-ui.min.js|captcha.yandex.|csp.yandex.|passport.yandex.|.css/gi;
 
 		if (whitelist.test(details.url)) {
 			callback({
