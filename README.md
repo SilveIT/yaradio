@@ -1,6 +1,13 @@
 # YaRadio <img src="static/Icon.png" width="48">
 
 Unofficial Desktop app for [Yandex.Radio](https://radio.yandex.ru/) with keyboard shortcuts, notifications, ad blocking and themes.
+
+At this moment this project needs a partial code rewrite (some dependencies are deprecated, they also have some non-critical vulnerabilities, version of electron is ancient).
+
+Known problems:
+- App doesn't store user session anymore.
+- Ads may still appear.
+
 ![light](media/screen_light.png)
 ![dark](media/screen_dark.png)
 ### Install
