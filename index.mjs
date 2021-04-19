@@ -1,47 +1,30 @@
 /* eslint-disable quotes */
 'use strict';
-const {
-	join,
-	resolve
-} = require('path');
-const {
-	statSync,
-	readdirSync,
-	readFileSync
-} = require('fs');
-const {
-	app,
-	ipcMain,
-	shell,
-	BrowserWindow,
-	Menu,
-	globalShortcut,
-	session,
-	dialog,
-	clipboard
-} = require('electron');
-const {
-	create,
-	setTrayTooltip,
-	setTrayIcon
-} = require('./trayIcon.js');
-const settings = require('./settings');
+import {join, resolve, dirname} from 'path';
+import {fileURLToPath} from 'url';
+const __dirname = dirname(fileURLToPath(import.meta.url));
+import {statSync, readdirSync, readFileSync} from 'fs';
+//import electron from 'electron';
+const {app, ipcMain, shell, BrowserWindow, Menu, globalShortcut, session, dialog, clipboard} = globalThis.electron;
+import {create, setTrayTooltip, setTrayIcon} from './deps/trayIcon.mjs';
+import prefs from './deps/preferences.cjs';
 const appName = app.getName();
 const ipc = ipcMain;
-const {
-	release
-} = require('os');
+import {release} from 'os';
+import menu from 'electron-context-menu';
+import eNotify from './deps/notify/notify.cjs'; // Notifications core
+import minimist from 'minimist';
+import nodeConsole from 'console';
 
-// Check integrity of settings file
-settings.verifySettings();
+// Check integrity of config file
+prefs.verifyConfig();
 
-let binds = settings.value('keyboard'); // Keyboard settings
+let binds = prefs.value('keyboard'); // Keyboard config
 let win; // Browser window
 let quitting = false; // Is application quitting right now
-let eNotify = null; // Notifications core
 let curTheme = getCurrentTheme();
 
-require('electron-context-menu')({
+menu({
 	prepend: (_, window) => [{
 		label: 'Refresh page',
 		click: () => win.reload(),
@@ -71,8 +54,7 @@ app.on('second-instance', () => {
 // #endregion Single instance lock
 
 function createMainWindow() {
-	const lastWindowState = settings.value('lastWindowState');
-
+	const lastWindowState = prefs.value('lastWindowState');
 	const brWin = new BrowserWindow({
 		title: app.getName(),
 		show: false,
@@ -87,9 +69,12 @@ function createMainWindow() {
 		frame: false,
 		backgroundColor: '#fff',
 		webPreferences: {
-			preload: join(__dirname, 'browser.js'),
+			preload: join(__dirname, 'browser.cjs'),
 			nodeIntegration: false,
-			plugins: true
+			plugins: true,
+			enableRemoteModule: true,
+			//webSecurity: false,
+			contextIsolation: false
 		}
 	});
 
@@ -100,7 +85,7 @@ function createMainWindow() {
 	brWin.loadURL('https://radio.yandex.ru/');
 
 	brWin.on('close', e => {
-		const winbehavior = settings.value('window').controlsBehavior;
+		const winbehavior = prefs.value('window').controlsBehavior;
 		if (quitting || winbehavior.indexOf('trayOnClose') === -1)
 			app.quit();
 		else {
@@ -113,8 +98,8 @@ function createMainWindow() {
 		}
 	});
 
-	brWin.on('minimize', function (event) {
-		const winbehavior = settings.value('window').controlsBehavior;
+	brWin.on('minimize', event => {
+		const winbehavior = prefs.value('window').controlsBehavior;
 		if (winbehavior.indexOf('trayOnMinimize') === -1) return;
 		event.preventDefault();
 		brWin.hide();
@@ -134,13 +119,13 @@ function directoryExists(directory) {
 		throw new TypeError('directory-exists expects a non-empty string as its first argument');
 	try {
 		return statSync(resolve(directory)).isDirectory();
-	} catch (e) {
+	} catch {
 		return false;
 	}
 }
 
 function loadCustomTheme(page) {
-	const dirPath = settings.value('window.customThemePath');
+	const dirPath = prefs.value('window.customThemePath');
 	if (!directoryExists(dirPath)) return false; // Directory is not valid
 	const dir = readdirSync(dirPath); // I think I'll use sync methods in css loading..
 	if (dir.length === 0)
@@ -157,10 +142,10 @@ function loadCustomTheme(page) {
 }
 
 function getCurrentTheme() {
-	const useCustom = settings.value('window.useCustom').indexOf('true') !== -1;
+	const useCustom = prefs.value('window.useCustom').indexOf('true') !== -1;
 	if (useCustom)
 		return 'custom';
-	return settings.value('window.theme').indexOf('true') === -1 ? 'white' : 'dark';
+	return prefs.value('window.theme').indexOf('true') === -1 ? 'white' : 'dark';
 }
 
 function updateTheme() {
@@ -216,11 +201,11 @@ function updateNotifyConfig() {
 }
 
 function setNotifyTheme(theme) {
-	var cont = document.getElementById("container");
-	var appIcon = document.getElementById("appIcon");
-	var image = document.getElementById("image");
+	const cont = document.getElementById("container");
+	const appIcon = document.getElementById("appIcon");
+	const image = document.getElementById("image");
 	if (theme === true) {
-		var filter = "invert(1)";
+		const filter = "invert(1)";
 		cont.style.filter = filter;
 		appIcon.style.filter = filter;
 		image.style.filter = filter;
@@ -233,7 +218,7 @@ function setNotifyTheme(theme) {
 
 const setNotifyThemeString = unescape(setNotifyTheme.toString());
 
-app.on('ready', () => {
+app.whenReady().then(() => {
 	// Removing default application menu
 	Menu.setApplicationMenu(null);
 
@@ -241,7 +226,6 @@ app.on('ready', () => {
 	win = createMainWindow();
 
 	// Setup notifications
-	eNotify = require('electron-notify');
 	updateNotifyConfig();
 
 	// Creating tray
@@ -267,7 +251,7 @@ app.on('ready', () => {
 	// #endregion Register global shortcuts
 
 	const page = win.webContents;
-	const argv = require('minimist')(process.argv.slice(1));
+	const argv = minimist(process.argv.slice(1));
 
 	page.on('dom-ready', () => {
 		switch (curTheme) {
@@ -291,7 +275,10 @@ app.on('ready', () => {
 			win.show();
 	});
 
-	session.defaultSession.webRequest.onBeforeRequest(['*://*./*'], function (details, callback) {
+	session.defaultSession.webRequest.onBeforeRequest({
+		urls: ['*://*/*']
+	},
+	(details, callback) => {
 		const whitelist = /file:\/\/\/|chrome-devtools|avatars.yandex.net|yapic.yandex.ru|avatars.mds.yandex.net|.ttf|.woff|registration-validations|passport-frontend|storage.yandex.net|music.yandex.ru|radio.yandex.ru|jquery.min.js|jquery-ui.min.js|captcha.yandex.|csp.yandex.|passport.yandex.|.css|passport-static|passport-auth-customs|\/react\//gi;
 
 		if (whitelist.test(details.url)) {
@@ -299,7 +286,6 @@ app.on('ready', () => {
 				cancel: false
 			});
 		} else {
-			const nodeConsole = require('console');
 			const mainConsole = new nodeConsole.Console(process.stdout, process.stderr);
 			mainConsole.log(`Blocked: ${details.url}`);
 			callback({
@@ -334,7 +320,7 @@ app.on('before-quit',
 				bounds.width = 800;
 			if (bounds.height < 700)
 				bounds.height = 700;
-			settings.value('lastWindowState', bounds);
+			prefs.value('lastWindowState', bounds);
 		}
 
 		// Cleaning up notifications
@@ -350,8 +336,8 @@ function updateBinds(preferences) {
 		if (!toRemove)
 			try {
 				globalShortcut.register(preferences.keyboard.mute, () => win.send('mute'));
-			} catch (e) {
-				settings.value('keyboard.mute', binds.mute);
+			} catch {
+				prefs.value('keyboard.mute', binds.mute);
 				if (binds.mute !== '')
 					globalShortcut.register(binds.mute, () => win.send('mute'));
 			}
@@ -364,8 +350,8 @@ function updateBinds(preferences) {
 		if (!toRemove)
 			try {
 				globalShortcut.register(preferences.keyboard.play, () => win.send('play'));
-			} catch (e) {
-				settings.value('keyboard.play', binds.play);
+			} catch {
+				prefs.value('keyboard.play', binds.play);
 				if (binds.play !== '')
 					globalShortcut.register(binds.play, () => win.send('play'));
 			}
@@ -378,8 +364,8 @@ function updateBinds(preferences) {
 		if (!toRemove)
 			try {
 				globalShortcut.register(preferences.keyboard.next, () => win.send('next'));
-			} catch (e) {
-				settings.value('keyboard.next', binds.next);
+			} catch {
+				prefs.value('keyboard.next', binds.next);
 				if (binds.next !== '')
 					globalShortcut.register(binds.next, () => win.send('next'));
 			}
@@ -392,8 +378,8 @@ function updateBinds(preferences) {
 		if (!toRemove)
 			try {
 				globalShortcut.register(preferences.keyboard.like, () => win.send('like'));
-			} catch (e) {
-				settings.value('keyboard.like', binds.like);
+			} catch {
+				prefs.value('keyboard.like', binds.like);
 				if (binds.like !== '')
 					globalShortcut.register(binds.like, () => win.send('like'));
 			}
@@ -406,8 +392,8 @@ function updateBinds(preferences) {
 		if (!toRemove)
 			try {
 				globalShortcut.register(preferences.keyboard.dislike, () => win.send('dislike'));
-			} catch (e) {
-				settings.value('keyboard.dislike', binds.dislike);
+			} catch {
+				prefs.value('keyboard.dislike', binds.dislike);
 				if (binds.dislike !== '')
 					globalShortcut.register(binds.dislike, () => win.send('dislike'));
 			}
@@ -420,8 +406,8 @@ function updateBinds(preferences) {
 		if (!toRemove)
 			try {
 				globalShortcut.register(preferences.keyboard.increaseVolume, () => win.send('increaseVolume'));
-			} catch (e) {
-				settings.value('keyboard.increaseVolume', binds.increaseVolume);
+			} catch {
+				prefs.value('keyboard.increaseVolume', binds.increaseVolume);
 				if (binds.increaseVolume !== '')
 					globalShortcut.register(binds.increaseVolume, () => win.send('increaseVolume'));
 			}
@@ -434,17 +420,17 @@ function updateBinds(preferences) {
 		if (!toRemove)
 			try {
 				globalShortcut.register(preferences.keyboard.decreaseVolume, () => win.send('decreaseVolume'));
-			} catch (e) {
-				settings.value('keyboard.decreaseVolume', binds.decreaseVolume);
+			} catch {
+				prefs.value('keyboard.decreaseVolume', binds.decreaseVolume);
 				if (binds.decreaseVolume !== '')
 					globalShortcut.register(binds.decreaseVolume, () => win.send('decreaseVolume'));
 			}
 	}
 
-	binds = settings.value('keyboard');
+	binds = prefs.value('keyboard');
 }
 
-settings.on('save',
+prefs.on('save',
 	preferences => {
 		updateTheme();
 		updateBinds(preferences);
@@ -474,17 +460,17 @@ ipc.on('showAbout',
 		});
 	});
 
-ipc.on('showSettings', () => settings.show());
+ipc.on('showConfig', () => prefs.show());
 
 ipc.on('trackChanged',
 	(_, [author, track, preview]) => {
 		setTrayTooltip(track + ' by ' + author);
-		const enableNotifications = settings.value('notifications.enable').indexOf('true') !== -1;
+		const enableNotifications = prefs.value('notifications.enable').indexOf('true') !== -1;
 		if (!enableNotifications) return;
-		const showPreviews = settings.value('notifications.showPreviews').indexOf('true') !== -1;
-		const delay = settings.value('notifications.displayTime');
+		const showPreviews = prefs.value('notifications.showPreviews').indexOf('true') !== -1;
+		const delay = prefs.value('notifications.displayTime');
 		eNotify.notify({
-			title: author + '</b><img style="display:none;" src=x onerror=\'' + setNotifyThemeString + ((settings.value('window.theme').indexOf('true') === -1) ? '; setNotifyTheme(false);' : '; setNotifyTheme(true);') + '\'><b>',
+			title: author + '</b><img style="display:none;" src=x onerror=\'' + setNotifyThemeString + ((prefs.value('window.theme').indexOf('true') === -1) ? '; setNotifyTheme(false);' : '; setNotifyTheme(true);') + '\'><b>',
 			text: track,
 			image: showPreviews ? preview : null,
 			displayTime: delay,
@@ -493,7 +479,7 @@ ipc.on('trackChanged',
 				clipboard.writeText(fullTrack);
 				notification.closeNotification();
 				eNotify.notify({
-					title: 'Copied to clipboard</b><img style="display:none;" src=x onerror=\'' + setNotifyThemeString + ((settings.value('window.theme').indexOf('true') === -1) ? '; setNotifyTheme(false);' : '; setNotifyTheme(true);') + '\'><b>',
+					title: 'Copied to clipboard</b><img style="display:none;" src=x onerror=\'' + setNotifyThemeString + ((prefs.value('window.theme').indexOf('true') === -1) ? '; setNotifyTheme(false);' : '; setNotifyTheme(true);') + '\'><b>',
 					image: join(__dirname, 'static/Icon.png'),
 					text: fullTrack,
 					displayTime: 1500
@@ -507,8 +493,8 @@ ipc.on('stateChanged',
 		setTrayIcon(state ? join(__dirname, 'static/Icon_small.png') : join(__dirname, 'static/Icon_pause.png'));
 	});
 
-exports.getBrowserWindow = function () {
+export function getBrowserWindow() {
 	return win;
-};
+}
 
-exports.element = settings.value('element');
+export const element = prefs.value('element');

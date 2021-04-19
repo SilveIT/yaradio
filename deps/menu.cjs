@@ -1,10 +1,10 @@
 'use strict';
 const electron = require('electron');
-const shell = electron.shell;
-const app = electron.remote.app;
+const {shell} = electron;
+const {app} = electron.remote;
 const appName = app.getName();
 const ipc = electron.ipcRenderer;
-const browser = require('./browser.js');
+const browser = require('../browser.cjs');
 
 const helpSubmenu = [{
 	label: `${appName} Website`,
@@ -50,8 +50,8 @@ function darwinTpl() {
 			type: 'separator'
 		},
 		{
-			label: 'Settings',
-			click: () => ipc.send('showSettings')
+			label: 'Preferences',
+			click: () => ipc.send('showConfig')
 		},
 		{
 			label: 'Logout',
@@ -121,8 +121,8 @@ function otherTpl() {
 	return [{
 		label: appName,
 		submenu: [{
-			label: 'Settings',
-			click: () => ipc.send('showSettings')
+			label: 'Preferences',
+			click: () => ipc.send('showConfig')
 		},
 		{
 			label: 'Logout',

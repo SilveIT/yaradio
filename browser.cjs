@@ -1,21 +1,29 @@
 'use strict';
 const {
 	ipcRenderer,
-	webFrame,
-	remote
+	webFrame
 } = require('electron');
 const ipc = ipcRenderer;
-const el = remote.require('./index').element;
 const {
 	Titlebar,
 	Color
 } = require('custom-electron-titlebar');
 const {
 	create
-} = require('./menu.js');
+} = require('./deps/menu.cjs');
 let titlebar = null;
+const el = {
+	activeStation: '.page-index .station_playing',
+	dislike: '.page-station .button.like_action_dislike',
+	like: '.page-station .button.like_action_like',
+	mute: '.page-root .volume__icon',
+	next: '.page-station .slider__item_next',
+	play: '.page-station .player-controls__play',
+	prefButton: '.page-root .settings',
+	prefDialog: '.page-root .settings-stream.popup'
+};
 
-window.addEventListener('load', function () {
+window.addEventListener('load', () => {
 	const tbMenu = create();
 	titlebar = new Titlebar({
 		backgroundColor: Color.fromHex('#444'),
@@ -33,10 +41,10 @@ window.addEventListener('load', function () {
 	window.Mu.pages.adapter.on('state', () => ipc.send('stateChanged', window.Mu.pages.adapter.isPlaying()));
 	// AntiAntiAdblockMessage
 	window.Mu.blocks.blocks.notify.prototype.addMessage = (function () {
-		var oldAddMessage = window.Mu.blocks.blocks.notify.prototype.addMessage;
-		return function () {
-			if (arguments && arguments.length > 0 && arguments[0].indexOf('реклам') !== -1) return;
-			oldAddMessage.apply(this, arguments);
+		const oldAddMessage = window.Mu.blocks.blocks.notify.prototype.addMessage;
+		return function (...args) {
+			if (args && arguments.length > 0 && args[0].indexOf('реклам') !== -1) return;
+			oldAddMessage.apply(this, args);
 		};
 	})();
 }, false);
@@ -44,7 +52,7 @@ window.addEventListener('load', function () {
 function getCurrentTrack() {
 	const cur = window.Mu.pages.adapter.getCurrent();
 	const author = (cur.artists.length > 0 ? (cur.artists.map(
-		function (elem) {
+		elem => {
 			return elem.name;
 		}
 	).join(', ')) : 'Unknown artist');

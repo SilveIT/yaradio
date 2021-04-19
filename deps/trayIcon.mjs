@@ -1,14 +1,11 @@
 'use strict';
-const {
-	join
-} = require('path');
-const {
-	Menu,
-	Tray,
-	clipboard
-} = require('electron');
-const settings = require('./settings.js');
-const iconPath = join(__dirname, 'static/Icon_pause.png');
+import {join, dirname} from 'path';
+import {fileURLToPath} from 'url';
+const __dirname = dirname(fileURLToPath(import.meta.url));
+//import electron from 'electron';
+const {Menu, Tray, clipboard} = globalThis.electron;
+import prefs from './preferences.cjs';
+const iconPath = join(__dirname, '../static/Icon_pause.png');
 
 let ctxMenu = null;
 let appIcon = null;
@@ -55,8 +52,8 @@ function ctxTpl(win, app, showNotify) {
 		type: 'separator'
 	},
 	{
-		label: 'Settings',
-		click: () => settings.show()
+		label: 'Preferences',
+		click: () => prefs.show()
 	},
 	{
 		type: 'separator'
@@ -72,12 +69,12 @@ function ctxTpl(win, app, showNotify) {
 }
 
 function changeShowNotify() {
-	const enableNotifications = settings.value('notifications.enable').indexOf('true') !== -1;
-	settings.value('notifications.enable', enableNotifications ? [] : ['true']);
+	const enableNotifications = prefs.value('notifications.enable').indexOf('true') !== -1;
+	prefs.value('notifications.enable', enableNotifications ? [] : ['true']);
 }
 
 function updateIconMenu(win, app) {
-	const enableNotifications = settings.value('notifications.enable').indexOf('true') !== -1;
+	const enableNotifications = prefs.value('notifications.enable').indexOf('true') !== -1;
 	ctxMenu = Menu.buildFromTemplate(ctxTpl(win, app, enableNotifications));
 	appIcon.setContextMenu(ctxMenu);
 }
@@ -86,7 +83,7 @@ function getClickHandler(onClick, onDblClick, delay) {
 	delay = delay || 500;
 	return function (event) {
 		if (clickHandlerTimeout <= 0) {
-			clickHandlerTimeout = setTimeout(function () {
+			clickHandlerTimeout = setTimeout(() => {
 				if (clickHandlerTimeout <= 0) return;
 				onClick(event);
 				clickHandlerTimeout = 0;
@@ -99,7 +96,7 @@ function getClickHandler(onClick, onDblClick, delay) {
 	};
 }
 
-exports.create = (win, app, eNotify, themeText) => {
+export function create(win, app, eNotify, themeText) {
 	appIcon = new Tray(iconPath);
 	updateIconMenu(win, app);
 
@@ -108,8 +105,8 @@ exports.create = (win, app, eNotify, themeText) => {
 		if (curTooltip === '') return;
 		clipboard.writeText(curTooltip);
 		eNotify.notify({
-			title: 'Copied to clipboard</b><img style="display:none;" src=x onerror=\'' + themeText + ((settings.value('window.theme').indexOf('true') === -1) ? '; setNotifyTheme(false);' : '; setNotifyTheme(true);') + '\'><b>',
-			image: join(__dirname, 'static/Icon.png'),
+			title: 'Copied to clipboard</b><img style="display:none;" src=x onerror=\'' + themeText + ((prefs.value('window.theme').indexOf('true') === -1) ? '; setNotifyTheme(false);' : '; setNotifyTheme(true);') + '\'><b>',
+			image: join(__dirname, '../static/Icon.png'),
 			text: curTooltip,
 			displayTime: 1500
 		});
@@ -123,26 +120,22 @@ exports.create = (win, app, eNotify, themeText) => {
 		}
 	};
 
-	var clickHandler = getClickHandler(click, dblclick, 500);
+	const clickHandler = getClickHandler(click, dblclick, 500);
 
 	appIcon.addListener('click', clickHandler);
 	appIcon.addListener('double-click', clickHandler);
 
-	settings.on('save', () => {
+	prefs.on('save', () => {
 		//I'll update menu anyway, don't want to check every setting separately
 		updateIconMenu(win, app);
 	});
+}
 
-	win.on('show', function () {
-		appIcon.setHighlightMode('always');
-	});
-};
-
-exports.setTrayTooltip = tooltip => {
+export function setTrayTooltip(tooltip) {
 	appIcon.setToolTip(tooltip);
 	curTooltip = tooltip;
-};
+}
 
-exports.setTrayIcon = path => {
+export function setTrayIcon(path) {
 	appIcon.setImage(path);
-};
+}
