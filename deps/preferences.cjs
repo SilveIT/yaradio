@@ -59,21 +59,133 @@ const prefs = new ElectronPreferences({
 	 */
 	sections: [
 		{
-			id: 'about',
-			label: 'About You',
-			/**
-             * See the list of available icons below.
-             */
-			icon: 'single-01',
+			id: 'window',
+			label: 'Window',
+			icon: 'widget',
 			form: {
-				groups: [
+				groups: [{
+					label: 'Behavior',
+					fields: [{
+						label: 'Choose window controls behavior:',
+						key: 'controlsBehavior',
+						type: 'checkbox',
+						options: [{
+							label: 'Minimize to tray on window close',
+							value: 'trayOnClose'
+						},
+						{
+							label: 'Minimize to tray on window minimize',
+							value: 'trayOnMinimize'
+						}]
+					},
 					{
-						/**
-                         * Group heading is optional.
-                         */
-						label: 'About You'
-					}
-				]
+						content: ' ',
+						type: 'message'
+					}]
+				},
+				{
+					label: 'Appearance',
+					fields: [{
+						key: 'theme',
+						type: 'checkbox',
+						options: [{
+							label: 'Enable dark theme',
+							value: 'true'
+						}]
+					},
+					{
+						label: 'You can also choose your own theme',
+						key: 'useCustom',
+						type: 'checkbox',
+						options: [{
+							label: 'Enable custom theme',
+							value: 'true'
+						}]
+					},
+					{
+						key: 'customThemePath',
+						type: 'directory',
+						help: 'The location where your css files are stored.'
+					}]
+				}]
+			}
+		},
+		{
+			id: 'notifications',
+			label: 'Notifications',
+			icon: 'bell-53',
+			form: {
+				groups: [{
+					label: 'Notifications',
+					fields: [{
+						key: 'enable',
+						type: 'checkbox',
+						options: [{
+							label: 'Enable notifications',
+							value: 'true'
+						}]
+					},
+					{
+						key: 'showPreviews',
+						type: 'checkbox',
+						options: [{
+							label: 'Show preview',
+							value: 'true'
+						}]
+					},
+					{
+						label: 'Display time',
+						key: 'displayTime',
+						type: 'slider',
+						min: 500,
+						max: 15000
+					}]
+				}]
+			}
+		},
+		{
+			id: 'keyboard',
+			label: 'Keyboard shortcuts',
+			icon: 'flash-21',
+			form: {
+				groups: [{
+					label: 'Keyboard shortcuts',
+					fields: [{
+						label: 'Play',
+						key: 'play',
+						type: 'text'
+					},
+					{
+						label: 'Next',
+						key: 'next',
+						type: 'text'
+					},
+					{
+						label: 'Like',
+						key: 'like',
+						type: 'text'
+					},
+					{
+						label: 'Dislike',
+						key: 'dislike',
+						type: 'text'
+					},
+					{
+						label: 'Mute',
+						key: 'mute',
+						type: 'text'
+					},
+					{
+						label: 'Increase volume',
+						key: 'increaseVolume',
+						type: 'text'
+					},
+					{
+						label: 'Decrease volume',
+						key: 'decreaseVolume',
+						type: 'text'
+					}]
+				}]
 			}
 		}
 	]
